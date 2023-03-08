@@ -1,10 +1,22 @@
 import crypto from 'crypto';
-import { Product } from './product.entity';
-import { Seller } from './seller.entity';
+
+type SellerProps = {
+  id: string;
+  code: number;
+  name: string;
+}
+
+type ProductProps = {
+  id: string;
+  name: string;
+  brand: string;
+  price: number;
+  slug: string;
+}
 
 type SaleProductProps = {
-  seller: Seller;
-  product: Product;
+  seller: SellerProps;
+  product: ProductProps;
 }
 
 export class SaleProduct {
@@ -24,11 +36,11 @@ export class SaleProduct {
     };
   }
 
-  updateSeller(value: Seller) {
+  updateSeller(value: SellerProps) {
     this.seller = value;
   }
 
-  updateProduct(value: Product) {
+  updateProduct(value: ProductProps) {
     this.product = value;
   }
 
@@ -36,7 +48,7 @@ export class SaleProduct {
     return this.props.seller;
   }
 
-  private set seller(value: Seller) {
+  private set seller(value: SellerProps) {
     this.props.seller = value;
   }
 
@@ -44,7 +56,7 @@ export class SaleProduct {
     return this.props.product;
   }
 
-  private set product(value: Product) {
+  private set product(value: ProductProps) {
     this.props.product = value;
   }
 }
