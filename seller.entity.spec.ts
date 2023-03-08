@@ -3,6 +3,7 @@ import faker from "faker";
 
 describe('Seller Entity', () => {
   const sellerProps = {
+    code: faker.datatype.number(4),
     name: faker.name.findName()
   }
   test('create new seller', () => {
@@ -12,7 +13,12 @@ describe('Seller Entity', () => {
       ...sellerProps,
     });
   });
-
+  test('updateCode method', () => {
+    const newCode = faker.datatype.number(4);
+    const seller = Seller.create(sellerProps);
+    seller.updateCode(newCode);
+    expect(seller.code).toBe(newCode);
+  });
   test('updateName method', () => {
     const newName = faker.name.findName();
     const seller = Seller.create(sellerProps);

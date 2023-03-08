@@ -1,10 +1,12 @@
 import { Seller } from "./seller.entity";
 
 interface CreateSellerInputInterface {
+  code: number;
   name: string;
 }
 interface CreateSellerOutputInterface {
   id: string;
+  code: number;
   name: string;
 }
 interface CreateSellerUseCaseInterface {

@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 
 type SellerProps = {
+  code: number;
   name: string;
 }
 
@@ -21,8 +22,20 @@ export class Seller {
     };
   }
 
+  updateCode(value: number) {
+    this.code = value;
+  }
+
   updateName(value: string) {
     this.name = value;
+  }
+
+  get code() {
+    return this.props.code;
+  }
+
+  private set code(value: number) {
+    this.props.code = value;
   }
 
   get name() {

@@ -6,6 +6,7 @@ import { Seller } from "./seller.entity";
 describe('SaleProduct Entity', () => {
   const saleProductProps = {
     seller: Seller.create({
+      code: faker.datatype.number(4),
       name: faker.name.findName()
     }),
     product: Product.create({
@@ -23,6 +24,7 @@ describe('SaleProduct Entity', () => {
   });
   test('updateSeller method', () => {
     const newSeller = Seller.create({
+      code: faker.datatype.number(4),
       name: faker.name.findName()
     });
     const saleProduct = SaleProduct.create(saleProductProps);
