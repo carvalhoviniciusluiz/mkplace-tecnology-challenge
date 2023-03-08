@@ -1,22 +1,8 @@
-import { InsertProductRepositoryInterface } from "./product-in-memory.repository";
-import { Product } from "./product.entity";
-
-interface CreateProductInputInterface {
-  name: string;
-  brand: string;
-  price: number;
-  slug?: string;
-}
-interface CreateProductOutputInterface {
-  id: string;
-  name: string;
-  brand: string;
-  price: number;
-  slug: string;
-}
-interface CreateProductUseCaseInterface {
-  execute(input: CreateProductInputInterface): Promise<CreateProductOutputInterface>;
-}
+import { Product } from "../../../domain/entities";
+import { InsertProductRepositoryInterface } from "../../../domain/repositories/products";
+import { CreateProductUseCaseInterface } from "../../../domain/usecases/products";
+import { CreateProductInputInterface } from "../../../domain/usecases/products/inputs";
+import { CreateProductOutputInterface } from "../../../domain/usecases/products/outputs";
 
 export class CreateProductUseCase implements CreateProductUseCaseInterface {
   constructor(private productRepository: InsertProductRepositoryInterface) {}

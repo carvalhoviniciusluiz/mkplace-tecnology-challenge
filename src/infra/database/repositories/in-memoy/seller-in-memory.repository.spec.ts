@@ -1,7 +1,7 @@
 import { SellerInMemoryRepository } from "./seller-in-memory.repository";
-import { Seller } from "./seller.entity";
 import faker from "faker";
-import { FindOneSellerByCodeUseCase } from "./find-one-seller-by-code.usecase";
+import { Seller } from "../../../../domain/entities";
+import { FindOneSellerByCodeUseCase } from "../../../../application/usecases/sellers";
 
 describe('SellerInMemoryRepository Test', () => {
   const sellerProps = {

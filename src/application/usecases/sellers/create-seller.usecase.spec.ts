@@ -1,6 +1,6 @@
 import { CreateSellerUseCase } from "./create-seller.usecase";
 import faker from "faker";
-import { SellerInMemoryRepository } from "./seller-in-memory.repository";
+import { SellerInMemoryRepository } from "../../../infra/database/repositories/in-memoy";
 
 describe('CreateSellerUseCase Test', () => {
   const sellerProps = {

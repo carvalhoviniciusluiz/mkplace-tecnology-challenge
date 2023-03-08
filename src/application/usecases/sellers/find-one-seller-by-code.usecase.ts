@@ -1,9 +1,6 @@
-import { FindOneSellerByCodeRepositoryInterface } from "./seller-in-memory.repository";
-import { Seller } from "./seller.entity";
-
-interface FindOneSellerByCodeUseCaseInterface {
-execute(value: number): Promise<Seller | undefined>;
-}
+import { Seller } from "../../../domain/entities";
+import { FindOneSellerByCodeRepositoryInterface } from "../../../domain/repositories/sellers";
+import { FindOneSellerByCodeUseCaseInterface } from "../../../domain/usecases/sellers";
 
 export class FindOneSellerByCodeUseCase implements FindOneSellerByCodeUseCaseInterface {
   constructor(private sellerRepository: FindOneSellerByCodeRepositoryInterface) {}

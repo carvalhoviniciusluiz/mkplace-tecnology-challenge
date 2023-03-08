@@ -1,7 +1,7 @@
 import faker from "faker";
+import { SellerInMemoryRepository } from "../../../infra/database/repositories/in-memoy";
 import { CreateSellerUseCase } from "./create-seller.usecase";
 import { FindOneSellerByCodeUseCase } from "./find-one-seller-by-code.usecase";
-import { SellerInMemoryRepository } from "./seller-in-memory.repository";
 
 describe('FindOneSellerByCodeUseCase Test', () => {
   const repository = new SellerInMemoryRepository();

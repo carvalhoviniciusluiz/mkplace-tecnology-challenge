@@ -1,8 +1,5 @@
-import { Product } from "./product.entity";
-
-export interface InsertProductRepositoryInterface {
-  insert(product: Product): Promise<void>;
-}
+import { Product } from "../../../../domain/entities";
+import { InsertProductRepositoryInterface } from "../../../../domain/repositories/products";
 
 export class ProductInMemoryRepository implements InsertProductRepositoryInterface {
   products: Product[] = [];

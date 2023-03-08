@@ -1,11 +1,5 @@
-import { Seller } from "./seller.entity";
-
-export interface InsertSellerRepositoryInterface {
-  insert(seller: Seller): Promise<void>;
-}
-export interface FindOneSellerByCodeRepositoryInterface {
-  findOneByCode(value: number): Promise<Seller | undefined>;
-}
+import { Seller } from "../../../../domain/entities";
+import { FindOneSellerByCodeRepositoryInterface, InsertSellerRepositoryInterface } from "../../../../domain/repositories/sellers";
 
 export class SellerInMemoryRepository implements InsertSellerRepositoryInterface, FindOneSellerByCodeRepositoryInterface {
   sellers: Seller[] = [];
