@@ -1,3 +1,4 @@
+import { InsertSellerRepositoryInterface } from "./seller-in-memory.repository";
 import { Seller } from "./seller.entity";
 
 interface CreateSellerInputInterface {
@@ -10,12 +11,15 @@ interface CreateSellerOutputInterface {
   name: string;
 }
 interface CreateSellerUseCaseInterface {
-  execute(input: CreateSellerInputInterface): CreateSellerOutputInterface;
+  execute(input: CreateSellerInputInterface): Promise<CreateSellerOutputInterface>;
 }
 
 export class CreateSellerUseCase implements CreateSellerUseCaseInterface {
-  execute(input: CreateSellerInputInterface): CreateSellerOutputInterface {
+  constructor(private sellerRepository: InsertSellerRepositoryInterface) {}
+
+  async execute(input: CreateSellerInputInterface): Promise<CreateSellerOutputInterface> {
     const seller = Seller.create(input);
+    await this.sellerRepository.insert(seller);
     return seller.toJSON();
   }
 }
