@@ -1,4 +1,4 @@
-export interface CreateSaleProductInputInterface {
+export interface CreateSaleProductUseCaseInputInterface {
   seller: {
     code: number;
     name: string;

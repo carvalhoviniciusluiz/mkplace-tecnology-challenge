@@ -1,5 +1,5 @@
-import { Product } from "../../entities";
+import type { InsertProductRepositoryInputInterface } from "./inputs/insert-product-repository-input.interface";
 
 export interface InsertProductRepositoryInterface {
-  insert(product: Product): Promise<void>;
+  insert(input: InsertProductRepositoryInputInterface): Promise<void>;
 }

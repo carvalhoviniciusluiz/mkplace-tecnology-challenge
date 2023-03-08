@@ -1,5 +1,5 @@
-import { Seller } from "../../entities";
+import type { InsertSellerRepositoryInputInterface } from "./inputs/insert-seller-repository-input.interface";
 
 export interface InsertSellerRepositoryInterface {
-  insert(seller: Seller): Promise<void>;
+  insert(input: InsertSellerRepositoryInputInterface): Promise<void>;
 }

@@ -1,13 +1,13 @@
 import { Product, SaleProduct, Seller } from "../../../domain/entities";
-import { InsertSaleProductRepositoryInterface } from "../../../domain/repositories/sale-products";
-import { CreateSaleProductUseCaseInterface } from "../../../domain/usecases/sale-products";
-import { CreateSaleProductInputInterface } from "../../../domain/usecases/sale-products/inputs";
-import { CreateSaleProductOutputInterface } from "../../../domain/usecases/sale-products/outputs";
+import type { InsertSaleProductRepositoryInterface } from "../../../domain/repositories/sale-products";
+import type { CreateSaleProductUseCaseInterface } from "../../../domain/usecases/sale-products";
+import type { CreateSaleProductUseCaseInputInterface } from "../../../domain/usecases/sale-products/inputs";
+import type { CreateSaleProductUseCaseOutputInterface } from "../../../domain/usecases/sale-products/outputs";
 
 export class CreateSaleProductUseCase implements CreateSaleProductUseCaseInterface {
   constructor(private saleProductRepository: InsertSaleProductRepositoryInterface) {}
 
-  async execute(input: CreateSaleProductInputInterface): Promise<CreateSaleProductOutputInterface> {
+  async execute(input: CreateSaleProductUseCaseInputInterface): Promise<CreateSaleProductUseCaseOutputInterface> {
     const { product: productProps, seller: sellerProps } = input;
     const product = Product.create(productProps);
     const seller = Seller.create(sellerProps);

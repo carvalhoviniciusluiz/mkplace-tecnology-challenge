@@ -1,6 +1,6 @@
-import { CreateSaleProductInputInterface } from "./inputs";
-import { CreateSaleProductOutputInterface } from "./outputs";
+import type { CreateSaleProductUseCaseInputInterface } from "./inputs";
+import type { CreateSaleProductUseCaseOutputInterface } from "./outputs";
 
 export interface CreateSaleProductUseCaseInterface {
-  execute(input: CreateSaleProductInputInterface): Promise<CreateSaleProductOutputInterface>;
+  execute(input: CreateSaleProductUseCaseInputInterface): Promise<CreateSaleProductUseCaseOutputInterface>;
 }

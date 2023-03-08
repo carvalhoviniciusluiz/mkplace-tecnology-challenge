@@ -1,1 +1,1 @@
-export * from './create-seller-input.interface';
+export * from './create-seller-usecase-input.interface';

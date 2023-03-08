@@ -1,6 +1,6 @@
-import { FindAllProductsInputInterface } from "./inputs";
-import { FindAllProductsOutputInterface } from "./outputs";
+import type { FindAllProductsUseCaseInputInterface } from "./inputs";
+import type { FindAllProductsUseCaseOutputInterface } from "./outputs";
 
 export interface FindAllProductsUseCaseInterface {
-  execute(input: FindAllProductsInputInterface): Promise<FindAllProductsOutputInterface[]>
+  execute(input: FindAllProductsUseCaseInputInterface): Promise<FindAllProductsUseCaseOutputInterface[]>
 }

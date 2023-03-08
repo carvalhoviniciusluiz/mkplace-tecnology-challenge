@@ -1,5 +1,5 @@
-import { Seller } from "../../entities";
+import type { FindOneSellerByCodeRepositoryOutputInterface } from "./outputs";
 
 export interface FindOneSellerByCodeRepositoryInterface {
-  findOneByCode(value: number): Promise<Seller | undefined>;
+  findOneByCode(value: number): Promise<FindOneSellerByCodeRepositoryOutputInterface | undefined>;
 }

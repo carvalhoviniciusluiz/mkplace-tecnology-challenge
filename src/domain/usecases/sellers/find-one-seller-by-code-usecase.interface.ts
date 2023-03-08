@@ -1,5 +1,5 @@
-import { Seller } from "../../entities";
+import type { FindOneSellerByCodeUseCaseOutputInterface } from "./outputs";
 
 export interface FindOneSellerByCodeUseCaseInterface {
-  execute(value: number): Promise<Seller | undefined>;
+  execute(value: number): Promise<FindOneSellerByCodeUseCaseOutputInterface | undefined>;
 }

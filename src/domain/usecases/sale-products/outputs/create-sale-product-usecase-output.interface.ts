@@ -1,4 +1,4 @@
-export interface CreateSaleProductOutputInterface {
+export interface CreateSaleProductUseCaseOutputInterface {
   id: string;
   name: string;
   brand: string;

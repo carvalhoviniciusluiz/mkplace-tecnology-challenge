@@ -1,4 +1,4 @@
-export interface FindAllProductsOutputInterface {
+export interface FindAllProductsRepositoryOutputInterface {
   id: string;
   name: string;
   brand: string;

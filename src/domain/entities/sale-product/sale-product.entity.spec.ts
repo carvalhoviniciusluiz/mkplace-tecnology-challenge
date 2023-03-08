@@ -1,7 +1,7 @@
 import { SaleProduct } from "./sale-product.entity";
 import faker from "faker";
-import { Product } from "./product.entity";
-import { Seller } from "./seller.entity";
+import { Product } from "../product/product.entity";
+import { Seller } from "../seller/seller.entity";
 
 describe('SaleProduct Entity', () => {
   const saleProductProps = {

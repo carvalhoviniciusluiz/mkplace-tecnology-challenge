@@ -1,5 +1,5 @@
 import faker from "faker";
-import { Product } from "../../../../domain/entities";
+import { Product } from "../../../../../domain/entities";
 import { ProductInMemoryRepository } from "./product-in-memory.repository";
 
 describe('ProductInMemoryRepository Test', () => {
