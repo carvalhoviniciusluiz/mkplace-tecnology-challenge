@@ -1,3 +1,4 @@
+import { InsertProductRepositoryInterface } from "./product-in-memory.repository";
 import { Product } from "./product.entity";
 
 interface CreateProductInputInterface {
@@ -14,12 +15,15 @@ interface CreateProductOutputInterface {
   slug: string;
 }
 interface CreateProductUseCaseInterface {
-  execute(input: CreateProductInputInterface): CreateProductOutputInterface;
+  execute(input: CreateProductInputInterface): Promise<CreateProductOutputInterface>;
 }
 
 export class CreateProductUseCase implements CreateProductUseCaseInterface {
-  execute(input: CreateProductInputInterface): CreateProductOutputInterface {
+  constructor(private productRepository: InsertProductRepositoryInterface) {}
+
+  async execute(input: CreateProductInputInterface): Promise<CreateProductOutputInterface> {
     const product = Product.create(input);
+    await this.productRepository.insert(product);
     return {
       id: product.id,
       name: product.name,
