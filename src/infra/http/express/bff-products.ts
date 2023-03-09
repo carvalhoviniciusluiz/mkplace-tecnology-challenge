@@ -1,13 +1,32 @@
 import express, { Express, Request, Response } from 'express';
+import { DataSource } from 'typeorm';
 import { CreateProductUseCase, FindAllProductsUseCase } from '~/application/usecases/products';
-import { ProductInMemoryRepository } from '~/infra/database/repositories/in-memoy';
+import { Product } from '~/domain/entities';
+// import { ProductInMemoryRepository } from '~/infra/database/repositories/in-memoy';
+import { ProductSchema } from '~/infra/database/repositories/typeorm/product';
 
 const app: Express = express();
 
 app.use(express.json());
 
 const port = process.env.PORT || 3332;
-const repository = new ProductInMemoryRepository();
+// const repository = new ProductInMemoryRepository();
+
+let repository;
+
+(async () => {
+  const dataSource = new DataSource({
+    type: 'sqlite',
+    database: ':memory:',
+    synchronize: true,
+    logging: false,
+    entities: [ProductSchema]
+  });
+  await dataSource.initialize();
+  const repository = dataSource.getRepository(Product);
+  return repository;
+})()
+.then(productRepository => repository = productRepository);
 
 app.post('/products', async (req: Request, res: Response) => {
   const { product } = req.body;
