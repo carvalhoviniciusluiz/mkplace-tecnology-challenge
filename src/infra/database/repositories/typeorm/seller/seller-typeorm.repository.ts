@@ -1,7 +1,7 @@
 import { Repository } from "typeorm";
 import { Seller } from "~/domain/entities";
-import { FindOneSellerByCodeRepositoryInterface, InsertSellerRepositoryInterface } from "~/domain/repositories/sellers";
-import { FindOneSellerByCodeRepositoryOutputInterface } from "~/domain/repositories/sellers/outputs";
+import type { FindOneSellerByCodeRepositoryInterface, InsertSellerRepositoryInterface } from "~/domain/repositories/sellers";
+import type { FindOneSellerByCodeRepositoryOutputInterface } from "~/domain/repositories/sellers/outputs";
 
 export class SellerTypeOrmRepository implements InsertSellerRepositoryInterface, FindOneSellerByCodeRepositoryInterface {
   constructor(private repository: Repository<Seller>) {}
