@@ -15,8 +15,14 @@ export class ProductInMemoryRepository implements InsertProductRepositoryInterfa
   async insert(product: InsertProductRepositoryInputInterface): Promise<void> {
     this.products.push(product);
   }
-  async findAll(input: FindAllProductsRepositoryInputInterface): Promise<FindAllProductsRepositoryOutputInterface[]> {
-    const { brand, name, priceRange } = input;
+
+  async findAll(input?: FindAllProductsRepositoryInputInterface): Promise<FindAllProductsRepositoryOutputInterface[]> {
+    const hasInput = !!Object.keys(input ?? {}).length;
+    if(!hasInput) {
+      return this.products;
+    }
+
+    const { brand, name, priceRange } = input!;
 
     function inRange(number: number, start: number, end: number) {
       return number >= Math.min(start, end) && number < Math.max(start, end)

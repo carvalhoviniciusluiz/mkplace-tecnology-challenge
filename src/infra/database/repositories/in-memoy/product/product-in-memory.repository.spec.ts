@@ -49,10 +49,18 @@ describe('ProductInMemoryRepository Test', () => {
     expect(productsFiltered).toHaveLength(1);
   });
   it('should return empty list', async () => {
+    const repository = new ProductInMemoryRepository();
+    const productsFiltered = await repository.findAll({});
+    expect(productsFiltered).toHaveLength(0);
+  });
+  it('should return all', async () => {
     const product = Product.create(productProps);
     const repository = new ProductInMemoryRepository();
     await repository.insert(product);
-    const productsFiltered = await repository.findAll({});
-    expect(productsFiltered).toHaveLength(0);
+    await repository.insert(product);
+    const productsFiltered1 = await repository.findAll({});
+    expect(productsFiltered1).toHaveLength(2);
+    const productsFiltered2 = await repository.findAll();
+    expect(productsFiltered2).toHaveLength(2);
   });
 });
