@@ -1,4 +1,4 @@
-import type { InsertSellerRepositoryInputInterface } from "./inputs/insert-seller-repository-input.interface";
+import type { InsertSellerRepositoryInputInterface } from "./inputs";
 
 export interface InsertSellerRepositoryInterface {
   insert(input: InsertSellerRepositoryInputInterface): Promise<void>;

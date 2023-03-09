@@ -1,8 +1,8 @@
-import { Product, SaleProduct, Seller } from "../../../domain/entities";
-import type { InsertSaleProductRepositoryInterface } from "../../../domain/repositories/sale-products";
-import type { CreateSaleProductUseCaseInterface } from "../../../domain/usecases/sale-products";
-import type { CreateSaleProductUseCaseInputInterface } from "../../../domain/usecases/sale-products/inputs";
-import type { CreateSaleProductUseCaseOutputInterface } from "../../../domain/usecases/sale-products/outputs";
+import { Product, SaleProduct, Seller } from "~/domain/entities";
+import type { InsertSaleProductRepositoryInterface } from "~/domain/repositories/sale-products";
+import type { CreateSaleProductUseCaseInterface } from "~/domain/usecases/sale-products";
+import type { CreateSaleProductUseCaseInputInterface } from "~/domain/usecases/sale-products/inputs";
+import type { CreateSaleProductUseCaseOutputInterface } from "~/domain/usecases/sale-products/outputs";
 
 export class CreateSaleProductUseCase implements CreateSaleProductUseCaseInterface {
   constructor(private saleProductRepository: InsertSaleProductRepositoryInterface) {}

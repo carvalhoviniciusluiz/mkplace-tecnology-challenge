@@ -1,6 +1,6 @@
-import type { FindAllProductsRepositoryInterface, InsertProductRepositoryInterface } from "../../../../../domain/repositories/products";
-import type { FindAllProductsRepositoryInputInterface, InsertProductRepositoryInputInterface } from "../../../../../domain/repositories/products/inputs";
-import type { FindAllProductsRepositoryOutputInterface } from "../../../../../domain/repositories/products/outputs";
+import type { FindAllProductsRepositoryInterface, InsertProductRepositoryInterface } from "~/domain/repositories/products";
+import type { FindAllProductsRepositoryInputInterface, InsertProductRepositoryInputInterface } from "~/domain/repositories/products/inputs";
+import type { FindAllProductsRepositoryOutputInterface } from "~/domain/repositories/products/outputs";
 
 interface ProductsDataInterface {
   id: string;

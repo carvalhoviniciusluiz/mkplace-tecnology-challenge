@@ -1,8 +1,8 @@
-import { Product } from "../../../domain/entities";
-import type { InsertProductRepositoryInterface } from "../../../domain/repositories/products";
-import type { CreateProductUseCaseInterface } from "../../../domain/usecases/products";
-import type { CreateProductUseCaseInputInterface } from "../../../domain/usecases/products/inputs";
-import type { CreateProductUseCaseOutputInterface } from "../../../domain/usecases/products/outputs";
+import { Product } from "~/domain/entities";
+import type { InsertProductRepositoryInterface } from "~/domain/repositories/products";
+import type { CreateProductUseCaseInterface } from "~/domain/usecases/products";
+import type { CreateProductUseCaseInputInterface } from "~/domain/usecases/products/inputs";
+import type { CreateProductUseCaseOutputInterface } from "~/domain/usecases/products/outputs";
 
 export class CreateProductUseCase implements CreateProductUseCaseInterface {
   constructor(private productRepository: InsertProductRepositoryInterface) {}

@@ -1,6 +1,6 @@
-import type { FindAllSaleProductsRepositoryInterface, InsertSaleProductRepositoryInterface } from "../../../../../domain/repositories/sale-products";
-import type { FindAllSaleProductsRepositoryInputInterface, InsertSaleProductRepositoryInputInterface } from "../../../../../domain/repositories/sale-products/inputs";
-import type { FindAllSaleProductsRepositoryOutputInterface } from "../../../../../domain/repositories/sale-products/output";
+import type { FindAllSaleProductsRepositoryInterface, InsertSaleProductRepositoryInterface } from "~/domain/repositories/sale-products";
+import type { FindAllSaleProductsRepositoryInputInterface, InsertSaleProductRepositoryInputInterface } from "~/domain/repositories/sale-products/inputs";
+import type { FindAllSaleProductsRepositoryOutputInterface } from "~/domain/repositories/sale-products/output";
 
 interface SaleProductsDataInterface {
   id: string;

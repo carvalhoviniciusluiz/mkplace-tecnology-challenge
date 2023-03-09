@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from 'express';
-import { CreateSellerUseCase } from '../../../application/usecases/sellers';
-import { SellerInMemoryRepository } from '../../database/repositories/in-memoy';
+import { CreateSellerUseCase } from '~/application/usecases/sellers';
+import { SellerInMemoryRepository } from '~/infra/database/repositories/in-memoy';
 
 const app: Express = express();
 

@@ -1,6 +1,6 @@
-import type { FindAllProductsRepositoryInterface } from "../../../domain/repositories/products";
-import type { FindAllProductsUseCaseInterface } from "../../../domain/usecases/products";
-import type { FindAllProductsUseCaseInputInterface } from "../../../domain/usecases/products/inputs";
+import type { FindAllProductsRepositoryInterface } from "~/domain/repositories/products";
+import type { FindAllProductsUseCaseInterface } from "~/domain/usecases/products";
+import type { FindAllProductsUseCaseInputInterface } from "~/domain/usecases/products/inputs";
 
 export class FindAllProductsUseCase implements FindAllProductsUseCaseInterface {
   constructor(private productRepository: FindAllProductsRepositoryInterface) {}

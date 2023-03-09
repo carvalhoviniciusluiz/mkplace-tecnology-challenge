@@ -1,6 +1,6 @@
 import faker from "faker";
-import { Product, Seller } from "../../../domain/entities";
-import { SaleProductInMemoryRepository } from "../../../infra/database/repositories/in-memoy";
+import { Product, Seller } from "~/domain/entities";
+import { SaleProductInMemoryRepository } from "~/infra/database/repositories/in-memoy";
 import { CreateSaleProductUseCase } from "./create-sale-product.usecase";
 
 describe('CreateSaleProductUseCase Test', () => {

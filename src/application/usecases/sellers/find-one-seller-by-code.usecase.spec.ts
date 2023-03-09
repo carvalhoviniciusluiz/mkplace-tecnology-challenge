@@ -1,5 +1,5 @@
 import faker from "faker";
-import { SellerInMemoryRepository } from "../../../infra/database/repositories/in-memoy";
+import { SellerInMemoryRepository } from "~/infra/database/repositories/in-memoy";
 import { CreateSellerUseCase } from "./create-seller.usecase";
 import { FindOneSellerByCodeUseCase } from "./find-one-seller-by-code.usecase";
 
