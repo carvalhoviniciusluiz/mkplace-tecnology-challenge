@@ -13,7 +13,13 @@ interface ProductsDataInterface {
 export class ProductInMemoryRepository implements InsertProductRepositoryInterface, FindAllProductsRepositoryInterface, FindOneProductBySlugRepositoryInterface {
   products: ProductsDataInterface[] = [];
   async insert(product: InsertProductRepositoryInputInterface): Promise<void> {
-    this.products.push(product);
+    this.products.push({
+      id: product.id,
+      brand: product.brand,
+      name: product.name,
+      price: product.price,
+      slug: product.slug,
+    });
   }
 
   async findAll(input?: FindAllProductsRepositoryInputInterface): Promise<FindAllProductsRepositoryOutputInterface[]> {

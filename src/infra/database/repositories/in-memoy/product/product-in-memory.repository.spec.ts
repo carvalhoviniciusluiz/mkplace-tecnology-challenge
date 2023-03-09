@@ -13,7 +13,7 @@ describe('ProductInMemoryRepository Test', () => {
     const repository = new ProductInMemoryRepository();
     await repository.insert(product);
     expect(repository.products).toHaveLength(1);
-    expect(repository.products).toStrictEqual([product]);
+    expect(repository.products).toStrictEqual([product.toJSON()]);
   });
   it('should filter product by brand', async () => {
     const product = Product.create(productProps);
@@ -73,6 +73,7 @@ describe('ProductInMemoryRepository Test', () => {
     await repository.insert(product1);
     await repository.insert(product2);
     const productFound = await repository.findOneBySlug(product2.slug);
-    expect(productFound).toStrictEqual(product2);
+    expect(repository.products).toHaveLength(2);
+    expect(productFound).toStrictEqual(product2.toJSON());
   });
 });
