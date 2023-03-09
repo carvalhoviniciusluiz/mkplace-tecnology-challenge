@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "start:bff-products": "ts-node src/infra/http/express/bff-products.ts",
     "start:bff-sellers": "ts-node src/infra/http/express/bff-sellers.ts"
   },
   "keywords": [],
