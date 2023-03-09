@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { CreateProductUseCase, FindAllProductsUseCase } from '~/application/usecases/products';
-import { FindAllProductsRepositoryInterface, InsertProductRepositoryInterface } from '~/domain/repositories/products';
+import { CreateProductUseCase, FindAllProductsUseCase, FindOneProductBySlugUseCase } from '~/application/usecases/products';
+import { FindAllProductsRepositoryInterface, FindOneProductBySlugRepositoryInterface, InsertProductRepositoryInterface } from '~/domain/repositories/products';
 import { ProductInMemoryRepository } from '~/infra/database/repositories/in-memoy';
 import { ProductsController } from './products.controller';
 import { ProductsService } from './products.service';
@@ -27,6 +27,13 @@ import { ProductsService } from './products.service';
       provide: 'CreateProductUseCase',
       useFactory: (repository: InsertProductRepositoryInterface) => {
         return new CreateProductUseCase(repository);
+      },
+      inject: [ProductInMemoryRepository]
+    },
+    {
+      provide: 'FindOneProductBySlugUseCase',
+      useFactory: (repository: FindOneProductBySlugRepositoryInterface) => {
+        return new FindOneProductBySlugUseCase(repository);
       },
       inject: [ProductInMemoryRepository]
     }

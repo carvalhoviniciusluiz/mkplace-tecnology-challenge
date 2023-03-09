@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { FindAllProductsUseCaseInputInterface } from '~/domain/usecases/products/inputs';
 import { CreateProductDto } from './dto';
 import { FindAllInputInterface } from './inputs';
@@ -25,5 +25,9 @@ export class ProductsController {
   @Post()
   async create(@Body() createProductDto: CreateProductDto) {
     return this.productsService.create(createProductDto);
+  }
+  @Get('/:slug')
+  async findBySlug(@Param('slug') value: string) {
+    return this.productsService.findBySlug(value);
   }
 }
