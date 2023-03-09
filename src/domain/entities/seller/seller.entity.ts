@@ -12,8 +12,16 @@ export class Seller {
   ) {}
 
   static create(props: SellerProps, id?: string) {
-    return new Seller(props, id);
+    const seller = new Seller(props, id);
+    if(!seller.code) {
+      seller.updateCode(Seller.genCode());
+    }
+    return seller;
   }
+
+  static genCode() {
+    return Number(Math.floor(1000 + Math.random() * 9000));
+  };
 
   toJSON() {
     return {

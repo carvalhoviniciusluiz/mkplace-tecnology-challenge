@@ -24,5 +24,10 @@ describe('Seller Entity', () => {
     const seller = Seller.create(sellerProps);
     seller.updateName(newName);
     expect(seller.name).toBe(newName);
-  })
+  });
+  test('genCode static method', () => {
+    const code = Seller.genCode();
+    expect(code).toBeDefined();
+    expect(String(code).length).toBe(4);
+  });
 });
