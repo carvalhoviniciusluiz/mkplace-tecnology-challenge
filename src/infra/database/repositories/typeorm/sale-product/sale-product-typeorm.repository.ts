@@ -7,6 +7,10 @@ export class SaleProductTypeOrmRepository implements InsertSaleProductRepository
   constructor(private repository: Repository<SaleProduct>) {}
 
   async insert(saleProduct: InsertSaleProductRepositoryInputInterface): Promise<void> {
-    await this.repository.save(saleProduct as any);
+    await this.repository.save({
+      id: saleProduct.id,
+      product: saleProduct.product.id,
+      seller: saleProduct.seller.id
+    } as any);
   }
 }

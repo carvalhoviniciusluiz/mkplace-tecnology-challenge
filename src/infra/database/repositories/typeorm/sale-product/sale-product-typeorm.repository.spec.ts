@@ -30,11 +30,7 @@ describe('SaleProductTypeOrmRepository Test', () => {
     const repository = dataSource.getRepository(SaleProduct);
     const saleProductRepository = new SaleProductTypeOrmRepository(repository);
     const saleProduct = SaleProduct.create({ seller, product});
-    await saleProductRepository.insert({
-      id: saleProduct.id,
-      product: saleProduct.product.id,
-      seller: saleProduct.seller.id,
-    });
+    await saleProductRepository.insert(saleProduct);
     const saleProductFound = await repository.findOneBy({ id: saleProduct.id });
     expect(saleProductFound.toJSON()).toStrictEqual(saleProduct.toJSON());
   })
