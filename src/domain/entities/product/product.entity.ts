@@ -37,10 +37,10 @@ export class Product {
   }
 
   updateSlug(value: string) {
-    this.slug = this.slugify(value);
+    this.slug = Product.slugify(value);
   }
 
-  private slugify(value: string) {
+  static slugify(value: string) {
     return value.toLocaleLowerCase()
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
@@ -76,7 +76,7 @@ export class Product {
   get slug() {
     const hasSlug = !!this.props.slug;
     if (!hasSlug) {
-      this.slug = this.slugify(this.brand + '_' + this.name);
+      this.slug = Product.slugify(this.brand + '_' + this.name);
     }
     return this.props.slug!;
   }
