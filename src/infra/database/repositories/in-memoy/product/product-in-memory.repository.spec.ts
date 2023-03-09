@@ -63,4 +63,16 @@ describe('ProductInMemoryRepository Test', () => {
     const productsFiltered2 = await repository.findAll();
     expect(productsFiltered2).toHaveLength(2);
   });
+  it('should return one product by slug', async () => {
+    const product1 = Product.create(productProps);
+    const product2 = Product.create({
+      ...productProps,
+      slug: 'slug-test'
+    });
+    const repository = new ProductInMemoryRepository();
+    await repository.insert(product1);
+    await repository.insert(product2);
+    const productFound = await repository.findOneBySlug(product2.slug);
+    expect(productFound).toStrictEqual(product2);
+  });
 });

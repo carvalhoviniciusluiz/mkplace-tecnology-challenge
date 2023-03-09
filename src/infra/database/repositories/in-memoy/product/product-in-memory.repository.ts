@@ -1,6 +1,6 @@
-import type { FindAllProductsRepositoryInterface, InsertProductRepositoryInterface } from "~/domain/repositories/products";
+import type { FindAllProductsRepositoryInterface, InsertProductRepositoryInterface, FindOneProductBySlugRepositoryInterface } from "~/domain/repositories/products";
 import type { FindAllProductsRepositoryInputInterface, InsertProductRepositoryInputInterface } from "~/domain/repositories/products/inputs";
-import type { FindAllProductsRepositoryOutputInterface } from "~/domain/repositories/products/outputs";
+import type { FindAllProductsRepositoryOutputInterface, FindOneProductBySlugRepositoryOutputInterface } from "~/domain/repositories/products/outputs";
 
 interface ProductsDataInterface {
   id: string;
@@ -10,7 +10,7 @@ interface ProductsDataInterface {
   slug: string;
 }
 
-export class ProductInMemoryRepository implements InsertProductRepositoryInterface, FindAllProductsRepositoryInterface {
+export class ProductInMemoryRepository implements InsertProductRepositoryInterface, FindAllProductsRepositoryInterface, FindOneProductBySlugRepositoryInterface {
   products: ProductsDataInterface[] = [];
   async insert(product: InsertProductRepositoryInputInterface): Promise<void> {
     this.products.push(product);
@@ -42,5 +42,9 @@ export class ProductInMemoryRepository implements InsertProductRepositoryInterfa
       return acc;
     }, [] as FindAllProductsRepositoryOutputInterface[]);
     return productFiltered;
+  }
+
+  async findOneBySlug(value: string): Promise<FindOneProductBySlugRepositoryOutputInterface> {
+    return this.products.find(product => product.slug === value);
   }
 }
