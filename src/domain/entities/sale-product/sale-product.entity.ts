@@ -32,7 +32,10 @@ export class SaleProduct {
   toJSON() {
     return {
       id: this.id,
-      ...this.props
+
+      // needed because of typeorm..
+      seller: this.props.seller.id ?? this.props.seller,
+      product: this.props.product.id ?? this.props.product
     };
   }
 

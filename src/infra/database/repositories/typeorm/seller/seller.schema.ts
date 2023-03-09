@@ -1,7 +1,7 @@
 import { EntitySchema }  from 'typeorm';
 import { Seller } from '~/domain/entities';
 
-export const SellerSchema = new EntitySchema({
+export const SellerSchema = new EntitySchema<Seller>({
   name: 'seller',
   tableName: 'sellers',
   target: Seller,

@@ -19,7 +19,8 @@ describe('SaleProduct Entity', () => {
     const saleProduct = SaleProduct.create(saleProductProps);
     expect(saleProduct.toJSON()).toStrictEqual({
       id: saleProduct.id,
-      ...saleProductProps,
+      seller: saleProductProps.seller.id,
+      product: saleProductProps.product.id,
     });
   });
   test('updateSeller method', () => {
