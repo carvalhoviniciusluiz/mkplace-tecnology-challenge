@@ -15,6 +15,10 @@ describe('ProductsService', () => {
         {
           provide: 'FindAllProductsUseCase',
           useValue: jest.fn()
+        },
+        {
+          provide: 'FindOneProductBySlugUseCase',
+          useValue: jest.fn()
         }
       ],
     }).compile();
