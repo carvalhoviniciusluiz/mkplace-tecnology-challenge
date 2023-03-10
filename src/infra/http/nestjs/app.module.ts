@@ -1,14 +1,20 @@
-import { Module } from '@nestjs/common';
+import { CacheInterceptor, CacheModule, Module } from '@nestjs/common';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductSchema, SaleProductSchema, SellerSchema } from '~/infra/database/repositories/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { POSTGRES_DB, POSTGRES_HOST, POSTGRES_PASSWORD, POSTGRES_USER, DATABASE_LOGGING, DATABASE_SYNCHRONIZE, POSTGRES_PORT } from './app.vars';
+import { CacheService } from './cache.service';
 import { ProductsModule } from './products/products.module';
 import { SaleProductsModule } from './sale-products/sale-products.module';
 
 @Module({
   imports: [
+    CacheModule.registerAsync({
+      isGlobal: true,
+      useClass: CacheService
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: POSTGRES_HOST,
@@ -24,6 +30,12 @@ import { SaleProductsModule } from './sale-products/sale-products.module';
     SaleProductsModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CacheInterceptor
+    }
+  ],
 })
 export class AppModule {}

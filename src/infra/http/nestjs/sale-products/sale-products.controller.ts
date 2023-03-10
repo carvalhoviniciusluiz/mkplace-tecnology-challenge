@@ -1,4 +1,4 @@
-import { Controller, Post, Body, BadRequestException, Get, Query } from '@nestjs/common';
+import { Controller, Post, Body, BadRequestException, Get, Query, UseInterceptors, CacheInterceptor } from '@nestjs/common';
 import { SaleProductsService } from './sale-products.service';
 import { CreateSaleProductDto } from './dto';
 import { ApiBadRequestResponse, ApiTags } from '@nestjs/swagger';
@@ -20,6 +20,7 @@ export class SaleProductsController {
         });
       });
   }
+  @UseInterceptors(CacheInterceptor)
   @Get()
   async findAll(@Query() query: FindAllSaleProductsInputInterface) {
     const { productBrand, productName, productSlug, productPrice, sellerCode, sellerName } = query;

@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { BadRequestException, Body, CacheInterceptor, Controller, Get, Param, Post, Query, UseInterceptors } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiTags } from '@nestjs/swagger';
 import type { FindAllProductsUseCaseInputInterface } from '~/domain/usecases/products/inputs';
 import { CreateProductDto } from './dto';
@@ -10,6 +10,7 @@ import { ProductsService } from './products.service';
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
+  @UseInterceptors(CacheInterceptor)
   @Get()
   async findAll(@Query() query: FindAllInputInterface) {
     const { price, ...rest } = query;
