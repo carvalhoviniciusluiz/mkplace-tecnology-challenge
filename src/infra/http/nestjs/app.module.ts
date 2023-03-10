@@ -4,6 +4,7 @@ import { ProductSchema, SaleProductSchema, SellerSchema } from '~/infra/database
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProductsModule } from './products/products.module';
+import { SaleProductsModule } from './sale-products/sale-products.module';
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { ProductsModule } from './products/products.module';
       logging: true,
       entities: [ProductSchema, SellerSchema, SaleProductSchema]
     }),
-    ProductsModule
+    ProductsModule,
+    SaleProductsModule
   ],
   controllers: [AppController],
   providers: [AppService],
