@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import { DataSource } from 'typeorm';
-import { CreateProductUseCase, FindAllProductsUseCase, FindOneProductBySlugUseCase } from '~/application/usecases/products';
+import { CreateProductUseCase, FindAllProductsUseCase, FindOneProductByBrandUseCase, FindOneProductByNameUseCase, FindOneProductBySlugUseCase } from '~/application/usecases/products';
 import { Product } from '~/domain/entities';
 import { FindAllProductsUseCaseInputInterface } from '~/domain/usecases/products/inputs';
 import { ProductTypeOrmRepository } from '~/infra/database/repositories/typeorm';
@@ -19,8 +19,15 @@ app.post('/products', async (req: Request, res: Response) => {
     res.status(200).json();
     return;
   }
-  const createProductUseCase = new CreateProductUseCase(repository);
-  const output = await createProductUseCase.execute(product);
+  const createProductUseCase = new CreateProductUseCase(
+    new FindOneProductByBrandUseCase(repository),
+    new FindOneProductByNameUseCase(repository),
+    repository
+  );
+  const output = await createProductUseCase.execute(product).catch(error => {
+    res.status(201).json(error.message);
+    return;
+  });
   res.status(201).json(output);
 });
 

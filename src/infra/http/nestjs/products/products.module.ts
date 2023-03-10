@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { getDataSourceToken, TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
-import { CreateProductUseCase, FindAllProductsUseCase, FindOneProductBySlugUseCase } from '~/application/usecases/products';
+import { CreateProductUseCase, FindAllProductsUseCase, FindOneProductByBrandUseCase, FindOneProductByNameUseCase, FindOneProductBySlugUseCase } from '~/application/usecases/products';
 import { Product } from '~/domain/entities';
-import { FindAllProductsRepositoryInterface, FindOneProductBySlugRepositoryInterface, InsertProductRepositoryInterface } from '~/domain/repositories/products';
+import { FindAllProductsRepositoryInterface, FindOneProductByBrandRepositoryInterface, FindOneProductByNameRepositoryInterface, FindOneProductBySlugRepositoryInterface, InsertProductRepositoryInterface } from '~/domain/repositories/products';
+import { FindOneProductByBrandUseCaseInterface, FindOneProductByNameUseCaseInterface } from '~/domain/usecases/products';
 import { ProductSchema, ProductTypeOrmRepository } from '~/infra/database/repositories/typeorm';
 import { ProductsController } from './products.controller';
 import { ProductsService } from './products.service';
@@ -29,15 +30,29 @@ import { ProductsService } from './products.service';
     },
     {
       provide: 'CreateProductUseCase',
-      useFactory: (repository: InsertProductRepositoryInterface) => {
-        return new CreateProductUseCase(repository);
+      useFactory: (findOneProductByBrandUseCase: FindOneProductByBrandUseCaseInterface, findOneProductByNameUseCase: FindOneProductByNameUseCaseInterface, repository: InsertProductRepositoryInterface) => {
+        return new CreateProductUseCase(findOneProductByBrandUseCase, findOneProductByNameUseCase, repository);
       },
-      inject: [ProductTypeOrmRepository]
+      inject: ['FindOneProductByBrandUseCase', 'FindOneProductByNameUseCase', ProductTypeOrmRepository]
     },
     {
       provide: 'FindOneProductBySlugUseCase',
       useFactory: (repository: FindOneProductBySlugRepositoryInterface) => {
         return new FindOneProductBySlugUseCase(repository);
+      },
+      inject: [ProductTypeOrmRepository]
+    },
+    {
+      provide: 'FindOneProductByBrandUseCase',
+      useFactory: (repository: FindOneProductByBrandRepositoryInterface) => {
+        return new FindOneProductByBrandUseCase(repository);
+      },
+      inject: [ProductTypeOrmRepository]
+    },
+    {
+      provide: 'FindOneProductByNameUseCase',
+      useFactory: (repository: FindOneProductByNameRepositoryInterface) => {
+        return new FindOneProductByNameUseCase(repository);
       },
       inject: [ProductTypeOrmRepository]
     }

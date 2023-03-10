@@ -1,5 +1,5 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
-import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { BadRequestException, Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { ApiBadRequestResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { FindAllProductsUseCaseInputInterface } from '~/domain/usecases/products/inputs';
 import { CreateProductDto } from './dto';
 import { FindAllInputInterface } from './inputs';
@@ -24,9 +24,15 @@ export class ProductsController {
     }
     return this.productsService.findAll(params);
   }
+  @ApiBadRequestResponse()
   @Post()
   async create(@Body() createProductDto: CreateProductDto) {
-    return this.productsService.create(createProductDto);
+    return this.productsService.create(createProductDto)
+    .catch(error => {
+      throw new BadRequestException(error.message, {
+        cause: error
+      });
+    });
   }
   @Get('/:slug')
   async findBySlug(@Param('slug') value: string) {

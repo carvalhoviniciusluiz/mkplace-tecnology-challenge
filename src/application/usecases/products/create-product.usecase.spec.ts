@@ -1,6 +1,7 @@
 import { CreateProductUseCase } from "./create-product.usecase";
 import faker from "faker";
 import { ProductInMemoryRepository } from "~/infra/database/repositories/in-memoy";
+import { FindOneProductByBrandUseCase, FindOneProductByNameUseCase } from "./finders";
 
 describe('CreateProductUseCase Test', () => {
   const productProps = {
@@ -10,8 +11,12 @@ describe('CreateProductUseCase Test', () => {
   }
   it('should create new Product', async () => {
     const repository = new ProductInMemoryRepository();
-    const createProduct = new CreateProductUseCase(repository);
-    const output = await createProduct.execute(productProps);
+    const createProductUseCase = new CreateProductUseCase(
+      new FindOneProductByBrandUseCase(repository),
+      new FindOneProductByNameUseCase(repository),
+      repository
+    );
+    const output = await createProductUseCase.execute(productProps);
     expect(repository.products).toHaveLength(1);
     expect(output).toStrictEqual({ ...productProps, id: output.id });
   });
