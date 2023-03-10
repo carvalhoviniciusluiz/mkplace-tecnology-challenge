@@ -1,8 +1,8 @@
 import { BadRequestException, Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
-import { ApiBadRequestResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { FindAllProductsUseCaseInputInterface } from '~/domain/usecases/products/inputs';
+import { ApiBadRequestResponse, ApiTags } from '@nestjs/swagger';
+import type { FindAllProductsUseCaseInputInterface } from '~/domain/usecases/products/inputs';
 import { CreateProductDto } from './dto';
-import { FindAllInputInterface } from './inputs';
+import type { FindAllInputInterface } from './inputs';
 import { ProductsService } from './products.service';
 
 @ApiTags('products')

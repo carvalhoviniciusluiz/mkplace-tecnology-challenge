@@ -33,5 +33,5 @@ describe('SaleProductTypeOrmRepository Test', () => {
     await saleProductRepository.insert(saleProduct);
     const saleProductFound = await repository.findOneBy({ id: saleProduct.id });
     expect(saleProductFound.toJSON()).toStrictEqual(saleProduct.toJSON());
-  })
+  });
 })

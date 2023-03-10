@@ -1,9 +1,14 @@
 export interface FindAllSaleProductsUseCaseInputInterface {
-  name?: string;
-  brand?: string;
-  priceRange?: {
-    maxValue: number,
-    minValue: number
+  seller?: {
+    code?: number;
+    name?: string;
   };
-  seller?: string;
+  product?: {
+    name?: string;
+    brand?: string;
+    priceRange?: {
+      maxValue: number,
+      minValue: number
+    };
+  }
 }

@@ -7,29 +7,29 @@ import { FindOneProductBySlugUseCase } from "./find-one-product-by-slug.usecase"
 
 describe('FindOneProductBySlugUseCase Test', () => {
   const repository = new ProductInMemoryRepository();
-  let productPersisted: { id: string, brand: string, name: string, price: number, slug: string };
+  let createProductUseCase: CreateProductUseCase;
   beforeAll(async () => {
-    const createProductUseCase = new CreateProductUseCase(
+    createProductUseCase = new CreateProductUseCase(
       new FindOneProductByBrandUseCase(repository),
       new FindOneProductByNameUseCase(repository),
       repository
     );
+  });
+  it('should find one Product by slug', async () => {
     await createProductUseCase.execute({
-      name: faker.name.findName(),
-      brand: faker.commerce.productAdjective(),
+      name: 'product 1',
+      brand: 'brand 1',
       price: parseFloat(faker.commerce.price())
     });
-    productPersisted = await createProductUseCase.execute({
-      name: faker.name.findName(),
-      brand: faker.commerce.productAdjective(),
+    const product2 = await createProductUseCase.execute({
+      name: 'product 2',
+      brand: 'brand 2',
       price: parseFloat(faker.commerce.price()),
       slug: 'slug-test'
     });
-  });
-  it('should find one Product by slug', async () => {
     const findOneProductBySlugUseCase = new FindOneProductBySlugUseCase(repository);
-    const output = await findOneProductBySlugUseCase.execute(productPersisted.slug);
+    const output = await findOneProductBySlugUseCase.execute(product2.slug);
     expect(repository.products).toHaveLength(2);
-    expect(output).toStrictEqual(productPersisted);
+    expect(output).toStrictEqual(product2);
   });
 })

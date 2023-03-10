@@ -16,10 +16,10 @@ export class CreateProductUseCase implements CreateProductUseCaseInterface {
     const productByNamePromise = this.findOneProductByNameUseCase.execute(input.name);
     const [productByBrandExists, productByNameExists] = await Promise.all([productByBrandPromise, productByNamePromise]);
     if(productByBrandExists) {
-      throw new Error(`${input.brand} already exists`);
+      throw new Error(`brand "${input.brand}" already exists`);
     }
     if(productByNameExists) {
-      throw new Error(`${input.name} already exists`);
+      throw new Error(`name "${input.name}" already exists`);
     }
     const product = Product.create(input);
     await this.productRepository.insert(product);

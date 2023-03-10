@@ -5,7 +5,7 @@ import { getDataSourceToken, TypeOrmModule } from '@nestjs/typeorm';
 import { ProductSchema, ProductTypeOrmRepository, SaleProductSchema, SaleProductTypeOrmRepository, SellerTypeOrmRepository } from '~/infra/database/repositories/typeorm';
 import { DataSource } from 'typeorm';
 import { Product, SaleProduct, Seller } from '~/domain/entities';
-import { InsertSaleProductRepositoryInterface } from '~/domain/repositories/sale-products';
+import { FindAllSaleProductsRepositoryInterface, InsertSaleProductRepositoryInterface } from '~/domain/repositories/sale-products';
 import { CreateSaleProductUseCase } from '~/application/usecases/sale-products';
 import { FindOneProductBySlugRepositoryInterface } from '~/domain/repositories/products';
 import { FindOneProductBySlugUseCase } from '~/application/usecases/products';
@@ -13,6 +13,7 @@ import { FindOneSellerByCodeUseCase } from '~/application/usecases/sellers';
 import { FindOneSellerByCodeRepositoryInterface } from '~/domain/repositories/sellers';
 import { FindOneProductBySlugUseCaseInterface } from '~/domain/usecases/products';
 import { FindOneSellerByCodeUseCaseInterface } from '~/domain/usecases/sellers';
+import { FindAllSaleProductsUseCase } from '~/application/usecases/sale-products/find-all-sale-products.usecase';
 
 @Module({
   imports: [TypeOrmModule.forFeature([SaleProductSchema, ProductSchema]),],
@@ -61,6 +62,13 @@ import { FindOneSellerByCodeUseCaseInterface } from '~/domain/usecases/sellers';
       },
       inject: ['FindOneProductBySlugUseCase', 'FindOneSellerByCodeUseCase', SaleProductTypeOrmRepository]
     },
+    {
+      provide: 'FindAllSaleProductsUseCase',
+      useFactory: (repository: FindAllSaleProductsRepositoryInterface) => {
+        return new FindAllSaleProductsUseCase(repository);
+      },
+      inject: [SaleProductTypeOrmRepository]
+    }
   ]
 })
 export class SaleProductsModule {}

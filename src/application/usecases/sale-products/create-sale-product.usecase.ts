@@ -1,10 +1,10 @@
 import { SaleProduct } from "~/domain/entities";
 import type { InsertSaleProductRepositoryInterface } from "~/domain/repositories/sale-products";
-import { FindOneProductBySlugUseCaseInterface } from "~/domain/usecases/products";
+import type { FindOneProductBySlugUseCaseInterface } from "~/domain/usecases/products";
 import type { CreateSaleProductUseCaseInterface } from "~/domain/usecases/sale-products";
 import type { CreateSaleProductUseCaseInputInterface } from "~/domain/usecases/sale-products/inputs";
 import type { CreateSaleProductUseCaseOutputInterface } from "~/domain/usecases/sale-products/outputs";
-import { FindOneSellerByCodeUseCaseInterface } from "~/domain/usecases/sellers";
+import type { FindOneSellerByCodeUseCaseInterface } from "~/domain/usecases/sellers";
 
 export class CreateSaleProductUseCase implements CreateSaleProductUseCaseInterface {
   constructor(

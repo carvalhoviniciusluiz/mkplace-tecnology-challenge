@@ -6,6 +6,7 @@ export interface FindAllSaleProductsRepositoryInputInterface {
   product?: {
     name?: string;
     brand?: string;
+    slug?: string;
     priceRange?: {
       maxValue: number,
       minValue: number

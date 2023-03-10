@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CreateProductUseCaseInterface, FindAllProductsUseCaseInterface, FindOneProductByBrandUseCaseInterface, FindOneProductByNameUseCaseInterface, FindOneProductBySlugUseCaseInterface } from '~/domain/usecases/products';
-import { CreateProductUseCaseInputInterface, FindAllProductsUseCaseInputInterface } from '~/domain/usecases/products/inputs';
+import type { CreateProductUseCaseInterface, FindAllProductsUseCaseInterface, FindOneProductBySlugUseCaseInterface } from '~/domain/usecases/products';
+import type { CreateProductUseCaseInputInterface, FindAllProductsUseCaseInputInterface } from '~/domain/usecases/products/inputs';
 
 @Injectable()
 export class ProductsService {
