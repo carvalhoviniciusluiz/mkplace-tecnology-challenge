@@ -4,7 +4,7 @@ import { DataSource } from 'typeorm';
 import { CreateProductUseCase, FindAllProductsUseCase, FindOneProductBySlugUseCase } from '~/application/usecases/products';
 import { Product } from '~/domain/entities';
 import { FindAllProductsRepositoryInterface, FindOneProductBySlugRepositoryInterface, InsertProductRepositoryInterface } from '~/domain/repositories/products';
-import { ProductSchema, ProductTypeOrmRepository } from '~/infra/database/repositories/typeorm/product';
+import { ProductSchema, ProductTypeOrmRepository } from '~/infra/database/repositories/typeorm';
 import { ProductsController } from './products.controller';
 import { ProductsService } from './products.service';
 

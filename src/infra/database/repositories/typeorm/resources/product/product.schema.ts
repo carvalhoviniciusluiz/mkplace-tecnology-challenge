@@ -19,7 +19,7 @@ export const ProductSchema = new EntitySchema<Product>({
       length: 255
     },
     price: {
-      type: Number,
+      type: 'decimal',
       precision: 10,
       scale: 2,
       default: 0

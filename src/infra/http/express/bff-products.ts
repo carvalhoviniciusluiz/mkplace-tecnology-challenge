@@ -2,31 +2,16 @@ import express, { Express, Request, Response } from 'express';
 import { DataSource } from 'typeorm';
 import { CreateProductUseCase, FindAllProductsUseCase } from '~/application/usecases/products';
 import { Product } from '~/domain/entities';
-// import { ProductInMemoryRepository } from '~/infra/database/repositories/in-memoy';
-import { ProductSchema } from '~/infra/database/repositories/typeorm/product';
-
-const app: Express = express();
-
-app.use(express.json());
+import { FindAllProductsUseCaseInputInterface } from '~/domain/usecases/products/inputs';
+import { ProductTypeOrmRepository } from '~/infra/database/repositories/typeorm';
+import { makeDataSource } from '~/main/database/repositories/typeorm';
 
 const port = process.env.PORT || 3332;
-// const repository = new ProductInMemoryRepository();
+const app: Express = express();
 
-let repository;
+let repository: ProductTypeOrmRepository;
 
-(async () => {
-  const dataSource = new DataSource({
-    type: 'sqlite',
-    database: ':memory:',
-    synchronize: true,
-    logging: false,
-    entities: [ProductSchema]
-  });
-  await dataSource.initialize();
-  const repository = dataSource.getRepository(Product);
-  return repository;
-})()
-.then(productRepository => repository = productRepository);
+app.use(express.json());
 
 app.post('/products', async (req: Request, res: Response) => {
   const { product } = req.body;
@@ -41,19 +26,24 @@ app.post('/products', async (req: Request, res: Response) => {
 
 app.get('/products', async (req: Request, res: Response) => {
   const { price } = req.query;
-  const opts: any = {};
+  const opts: FindAllProductsUseCaseInputInterface = {};
   const hasPrice = !!price;
   if(hasPrice) {
     const [minValue, maxValue] = String(price).split(',');
     opts.priceRange = {
-      maxValue,
-      minValue
+      maxValue: Number(maxValue),
+      minValue: Number(minValue)
     }
   }
   const findAllProductsUseCase = new FindAllProductsUseCase(repository);
   const output = await findAllProductsUseCase.execute(opts);
   res.status(201).json(output);
 });
+
+makeDataSource('postgres')
+  .then((dataSource: DataSource) => {
+    repository = new ProductTypeOrmRepository(dataSource.getRepository(Product));
+  });
 
 app.listen(port, () => {
   console.log(`server runnning on ${port}`)
