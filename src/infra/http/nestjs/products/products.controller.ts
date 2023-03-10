@@ -1,9 +1,11 @@
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { FindAllProductsUseCaseInputInterface } from '~/domain/usecases/products/inputs';
 import { CreateProductDto } from './dto';
 import { FindAllInputInterface } from './inputs';
 import { ProductsService } from './products.service';
 
+@ApiTags('products')
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}

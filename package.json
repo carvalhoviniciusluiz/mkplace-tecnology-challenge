@@ -30,6 +30,7 @@
     "@nestjs/event-emitter": "^1.4.1",
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/swagger": "^6.2.1",
     "@nestjs/typeorm": "^9.0.1",
     "bcryptjs": "^2.4.3",
     "bull": "^4.10.4",
