@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import { DataSource } from 'typeorm';
-import { CreateSellerUseCase } from '~/application/usecases/sellers';
+import { CreateSellerUseCase, FindOneSellerByCodeUseCase } from '~/application/usecases/sellers';
 import { Seller } from '~/domain/entities';
 import { SellerTypeOrmRepository } from '~/infra/database/repositories/typeorm';
 import { makeDataSource } from '~/main/database/repositories/typeorm';
@@ -21,7 +21,18 @@ app.post('/sellers', async (req: Request, res: Response) => {
   const createSellerUseCase = new CreateSellerUseCase(repository);
   const output = await createSellerUseCase.execute(seller);
   res.status(201).json(output);
-})
+});
+
+app.get('/sellers', async (req: Request, res: Response) => {
+  const { code } = req.query;
+  if(!code) {
+    res.status(200).json();
+    return;
+  }
+  const findOneSellerByCodeUseCase = new FindOneSellerByCodeUseCase(repository);
+  const output = await findOneSellerByCodeUseCase.execute(Number(code));
+  res.status(201).json(output);
+});
 
 makeDataSource('postgres')
   .then((dataSource: DataSource) => {

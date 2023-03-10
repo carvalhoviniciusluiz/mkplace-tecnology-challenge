@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import { DataSource } from 'typeorm';
-import { CreateProductUseCase, FindAllProductsUseCase } from '~/application/usecases/products';
+import { CreateProductUseCase, FindAllProductsUseCase, FindOneProductBySlugUseCase } from '~/application/usecases/products';
 import { Product } from '~/domain/entities';
 import { FindAllProductsUseCaseInputInterface } from '~/domain/usecases/products/inputs';
 import { ProductTypeOrmRepository } from '~/infra/database/repositories/typeorm';
@@ -25,19 +25,28 @@ app.post('/products', async (req: Request, res: Response) => {
 });
 
 app.get('/products', async (req: Request, res: Response) => {
-  const { price } = req.query;
-  const opts: FindAllProductsUseCaseInputInterface = {};
+  const { price, slug } = req.query;
   const hasPrice = !!price;
+  const hasSlug = !!slug;
   if(hasPrice) {
+    const opts: FindAllProductsUseCaseInputInterface = {};
     const [minValue, maxValue] = String(price).split(',');
     opts.priceRange = {
       maxValue: Number(maxValue),
       minValue: Number(minValue)
     }
+    const findAllProductsUseCase = new FindAllProductsUseCase(repository);
+    const output = await findAllProductsUseCase.execute(opts);
+    res.status(201).json(output);
+    return;
   }
-  const findAllProductsUseCase = new FindAllProductsUseCase(repository);
-  const output = await findAllProductsUseCase.execute(opts);
-  res.status(201).json(output);
+  if(hasSlug) {
+    const findOneProductBySlugUseCase = new FindOneProductBySlugUseCase(repository);
+    const output = await findOneProductBySlugUseCase.execute(String(slug));
+    res.status(201).json(output);
+    return;
+  }
+  res.status(201).json();
 });
 
 makeDataSource('postgres')
