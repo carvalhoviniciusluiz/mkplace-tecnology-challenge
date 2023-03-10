@@ -1,6 +1,6 @@
 import faker from "faker";
 import { ProductInMemoryRepository } from "~/infra/database/repositories/in-memoy";
-import { CreateProductUseCase } from "./create-product.usecase";
+import { CreateProductUseCase } from "../create-product.usecase";
 import { FindAllProductsUseCase } from "./find-all-products.usecase";
 
 describe('FindAllProductsUseCase Test', () => {

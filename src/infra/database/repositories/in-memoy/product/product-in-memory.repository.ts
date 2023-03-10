@@ -1,6 +1,6 @@
-import type { FindAllProductsRepositoryInterface, InsertProductRepositoryInterface, FindOneProductBySlugRepositoryInterface } from "~/domain/repositories/products";
+import type { FindAllProductsRepositoryInterface, InsertProductRepositoryInterface, FindOneProductBySlugRepositoryInterface, FindOneProductByBrandRepositoryInterface, FindOneProductByNameRepositoryInterface } from "~/domain/repositories/products";
 import type { FindAllProductsRepositoryInputInterface, InsertProductRepositoryInputInterface } from "~/domain/repositories/products/inputs";
-import type { FindAllProductsRepositoryOutputInterface, FindOneProductBySlugRepositoryOutputInterface } from "~/domain/repositories/products/outputs";
+import type { FindAllProductsRepositoryOutputInterface, FindOneProductByBrandRepositoryOutputInterface, FindOneProductByNameRepositoryOutputInterface, FindOneProductBySlugRepositoryOutputInterface } from "~/domain/repositories/products/outputs";
 
 interface ProductsDataInterface {
   id: string;
@@ -10,7 +10,8 @@ interface ProductsDataInterface {
   slug: string;
 }
 
-export class ProductInMemoryRepository implements InsertProductRepositoryInterface, FindAllProductsRepositoryInterface, FindOneProductBySlugRepositoryInterface {
+export class ProductInMemoryRepository
+  implements InsertProductRepositoryInterface, FindAllProductsRepositoryInterface, FindOneProductBySlugRepositoryInterface, FindOneProductByBrandRepositoryInterface, FindOneProductByNameRepositoryInterface {
   products: ProductsDataInterface[] = [];
   async insert(product: InsertProductRepositoryInputInterface): Promise<void> {
     this.products.push({
@@ -21,7 +22,6 @@ export class ProductInMemoryRepository implements InsertProductRepositoryInterfa
       slug: product.slug,
     });
   }
-
   async findAll(input?: FindAllProductsRepositoryInputInterface): Promise<FindAllProductsRepositoryOutputInterface[]> {
     const hasInput = !!Object.keys(input ?? {}).length;
     if(!hasInput) {
@@ -49,8 +49,13 @@ export class ProductInMemoryRepository implements InsertProductRepositoryInterfa
     }, [] as FindAllProductsRepositoryOutputInterface[]);
     return productFiltered;
   }
-
   async findOneBySlug(value: string): Promise<FindOneProductBySlugRepositoryOutputInterface> {
     return this.products.find(product => product.slug === value);
+  }
+  async findOneByBrand(value: string): Promise<FindOneProductByBrandRepositoryOutputInterface> {
+    return this.products.find(product => product.brand === value);
+  }
+  async findOneByName(value: string): Promise<FindOneProductByNameRepositoryOutputInterface> {
+    return this.products.find(product => product.name === value);
   }
 }

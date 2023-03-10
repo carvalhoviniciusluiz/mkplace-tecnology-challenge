@@ -1,6 +1,6 @@
 import faker from "faker";
 import { ProductInMemoryRepository } from "~/infra/database/repositories/in-memoy";
-import { CreateProductUseCase } from "./create-product.usecase";
+import { CreateProductUseCase } from "../create-product.usecase";
 import { FindOneProductBySlugUseCase } from "./find-one-product-by-slug.usecase";
 
 describe('FindOneProductBySlugUseCase Test', () => {
@@ -20,7 +20,7 @@ describe('FindOneProductBySlugUseCase Test', () => {
       slug: 'slug-test'
     });
   });
-  it('should find one Seller', async () => {
+  it('should find one Product by slug', async () => {
     const findOneProductBySlugUseCase = new FindOneProductBySlugUseCase(repository);
     const output = await findOneProductBySlugUseCase.execute(productPersisted.slug);
     expect(repository.products).toHaveLength(2);
