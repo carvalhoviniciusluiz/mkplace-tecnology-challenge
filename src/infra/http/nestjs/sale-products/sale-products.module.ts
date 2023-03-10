@@ -11,6 +11,8 @@ import { FindOneProductBySlugRepositoryInterface } from '~/domain/repositories/p
 import { FindOneProductBySlugUseCase } from '~/application/usecases/products';
 import { FindOneSellerByCodeUseCase } from '~/application/usecases/sellers';
 import { FindOneSellerByCodeRepositoryInterface } from '~/domain/repositories/sellers';
+import { FindOneProductBySlugUseCaseInterface } from '~/domain/usecases/products';
+import { FindOneSellerByCodeUseCaseInterface } from '~/domain/usecases/sellers';
 
 @Module({
   imports: [TypeOrmModule.forFeature([SaleProductSchema, ProductSchema]),],
@@ -54,10 +56,10 @@ import { FindOneSellerByCodeRepositoryInterface } from '~/domain/repositories/se
     },
     {
       provide: 'CreateSaleProductUseCase',
-      useFactory: (repository: InsertSaleProductRepositoryInterface) => {
-        return new CreateSaleProductUseCase(repository);
+      useFactory: (findOneProductBySlugUseCaseInterface: FindOneProductBySlugUseCaseInterface, findOneSellerByCodeUseCaseInterface: FindOneSellerByCodeUseCaseInterface, repository: InsertSaleProductRepositoryInterface) => {
+        return new CreateSaleProductUseCase(findOneProductBySlugUseCaseInterface, findOneSellerByCodeUseCaseInterface, repository);
       },
-      inject: [SaleProductTypeOrmRepository]
+      inject: ['FindOneProductBySlugUseCase', 'FindOneSellerByCodeUseCase', SaleProductTypeOrmRepository]
     },
   ]
 })
