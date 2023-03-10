@@ -66,7 +66,7 @@ describe('ProductTypeOrmRepository Test', () => {
     });
   });
   it('should return product by slug', async () => {
-    const [productRepository, repository] = await makeSut();
+    const [productRepository] = await makeSut();
     const product1 = Product.create({
       name: faker.name.findName(),
       brand: faker.commerce.productAdjective(),
@@ -82,5 +82,27 @@ describe('ProductTypeOrmRepository Test', () => {
     await productRepository.insert(product2);
     const productFound = await productRepository.findOneBySlug('slug-test');
     expect(productFound).toStrictEqual(product2);
+  });
+  it('should return product by brand', async () => {
+    const [productRepository] = await makeSut();
+    const product1 = Product.create({
+      name: faker.name.findName(),
+      brand: faker.commerce.productAdjective(),
+      price: parseFloat(faker.commerce.price())
+    });
+    await productRepository.insert(product1);
+    const productFound = await productRepository.findOneByBrand(product1.brand);
+    expect(productFound).toStrictEqual(product1);
+  });
+  it('should return product by name', async () => {
+    const [productRepository] = await makeSut();
+    const product1 = Product.create({
+      name: faker.name.findName(),
+      brand: faker.commerce.productAdjective(),
+      price: parseFloat(faker.commerce.price())
+    });
+    await productRepository.insert(product1);
+    const productFound = await productRepository.findOneByName(product1.name);
+    expect(productFound).toStrictEqual(product1);
   });
 });

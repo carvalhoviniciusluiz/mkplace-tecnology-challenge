@@ -1,10 +1,11 @@
 import { Between, FindOptionsWhere, Repository } from "typeorm";
 import { Product } from "~/domain/entities";
-import type { FindAllProductsRepositoryInterface, FindOneProductBySlugRepositoryInterface, InsertProductRepositoryInterface } from "~/domain/repositories/products";
+import type { FindAllProductsRepositoryInterface, FindOneProductByBrandRepositoryInterface, FindOneProductByNameRepositoryInterface, FindOneProductBySlugRepositoryInterface, InsertProductRepositoryInterface } from "~/domain/repositories/products";
 import type { FindAllProductsRepositoryInputInterface } from "~/domain/repositories/products/inputs";
-import type { FindAllProductsRepositoryOutputInterface, FindOneProductBySlugRepositoryOutputInterface } from "~/domain/repositories/products/outputs";
+import type { FindAllProductsRepositoryOutputInterface, FindOneProductByBrandRepositoryOutputInterface, FindOneProductByNameRepositoryOutputInterface, FindOneProductBySlugRepositoryOutputInterface } from "~/domain/repositories/products/outputs";
 
-export class ProductTypeOrmRepository implements InsertProductRepositoryInterface, FindAllProductsRepositoryInterface, FindOneProductBySlugRepositoryInterface {
+export class ProductTypeOrmRepository
+  implements InsertProductRepositoryInterface, FindAllProductsRepositoryInterface, FindOneProductBySlugRepositoryInterface, FindOneProductByBrandRepositoryInterface, FindOneProductByNameRepositoryInterface {
   constructor(private repository: Repository<Product>) {}
 
   async insert(product: Product): Promise<void> {
@@ -32,5 +33,11 @@ export class ProductTypeOrmRepository implements InsertProductRepositoryInterfac
   }
   findOneBySlug(value: string): Promise<FindOneProductBySlugRepositoryOutputInterface> {
     return this.repository.findOneBy({ slug: value });
+  }
+  findOneByName(value: string): Promise<FindOneProductByNameRepositoryOutputInterface> {
+    return this.repository.findOneBy({ name: value });
+  }
+  findOneByBrand(value: string): Promise<FindOneProductByBrandRepositoryOutputInterface> {
+    return this.repository.findOneBy({ brand: value });
   }
 }
