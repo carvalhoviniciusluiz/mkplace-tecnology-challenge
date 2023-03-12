@@ -146,6 +146,13 @@ npm run start:bff-products
 npm run start:bff-sellers
 ```
 
+### **Tests:**
+
+É necessário que o docker esteja levantado, no terminal faça:
+```bash
+npm test
+```
+
 ### **API:** <a name="api"></a>
 
 #### BFF: Sellers
