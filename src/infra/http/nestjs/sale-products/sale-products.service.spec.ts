@@ -9,6 +9,10 @@ describe('SaleProductsService', () => {
       providers: [
         SaleProductsService,
         {
+          provide: 'EventEmitter',
+          useValue: jest.fn()
+        },
+        {
           provide: 'CreateSaleProductUseCase',
           useValue: jest.fn()
         },

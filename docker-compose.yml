@@ -5,6 +5,11 @@ networks:
     driver: bridge
 
 services:
+  redis:
+    image: redis:7.0.8-alpine
+    ports:
+    - 6379:6379
+
   mongo:
     image: mongo
     restart: always

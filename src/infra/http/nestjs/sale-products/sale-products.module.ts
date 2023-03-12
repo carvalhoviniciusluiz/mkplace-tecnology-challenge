@@ -14,12 +14,31 @@ import { FindOneSellerByCodeRepositoryInterface } from '~/domain/repositories/se
 import { FindOneProductBySlugUseCaseInterface } from '~/domain/usecases/products';
 import { FindOneSellerByCodeUseCaseInterface } from '~/domain/usecases/sellers';
 import { FindAllSaleProductsUseCase } from '~/application/usecases/sale-products/find-all-sale-products.usecase';
+import { EventEmitter2, EventEmitterModule } from '@nestjs/event-emitter';
+import { BullModule } from '@nestjs/bull';
+import { PublishSaleProductCreatedListener } from './listeners/publish-sale-product-created.listener';
+import { PersistSaleProductJob } from './jobs/persist-sale-product.job';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([SaleProductSchema, ProductSchema]),],
+  imports: [
+    TypeOrmModule.forFeature([SaleProductSchema, ProductSchema]),
+    EventEmitterModule.forRoot(),
+    BullModule.registerQueue({
+      name: 'sale-products-service',
+      defaultJobOptions: {
+        attempts: 1,
+      }
+    })
+  ],
   controllers: [SaleProductsController],
   providers: [
     SaleProductsService,
+    PublishSaleProductCreatedListener,
+    PersistSaleProductJob,
+    {
+      provide: 'EventEmitter',
+      useExisting: EventEmitter2,
+    },
     {
       provide: SaleProductTypeOrmRepository,
       useFactory: (dataSource: DataSource) => {

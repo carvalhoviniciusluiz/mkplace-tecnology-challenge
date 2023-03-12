@@ -12,6 +12,7 @@ export const POSTGRES_DB = configService.getOrThrow<string>('POSTGRES_DB');
 export const POSTGRES_USER = configService.getOrThrow<string>('POSTGRES_USER');
 export const POSTGRES_PASSWORD = configService.getOrThrow<string>('POSTGRES_PASSWORD');
 export const POSTGRES_PORT = configService.getOrThrow<number>('POSTGRES_PORT');
+export const MONGODB_URL = configService.getOrThrow<string>('MONGODB_URL');
 export const DATABASE_LOGGING = JSON.parse(process.env.DATABASE_LOGGING ?? 'false');
 export const DATABASE_SYNCHRONIZE = JSON.parse(process.env.DATABASE_SYNCHRONIZE ?? 'false');
 export const IS_PROD = NODE_ENV === 'production';

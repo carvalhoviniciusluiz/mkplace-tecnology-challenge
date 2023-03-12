@@ -88,6 +88,7 @@ docker-compose up
   - Strategy
   - Dependency Inversion
   - Backend For Frontend (BFF)
+  - CQRS
 - Boa Práticas
   - SOLID
   - DDD
@@ -97,6 +98,7 @@ docker-compose up
   - Cache
   - Swagger
   - TypeORM
+  - MidroORM
   - Docker
 </details>
 
