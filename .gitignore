@@ -20,6 +20,7 @@ lerna-debug.log*
 /.nyc_output
 .env
 api.http
+*-test
 
 # IDEs and editors
 /.idea

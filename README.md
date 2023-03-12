@@ -134,7 +134,7 @@ Execute os serviços principais do projeto:
 npm run start:dev
 
 # não é requisito rodar os BFFs
-npm run start:dff-products
+npm run start:bff-products
 npm run start:bff-sellers
 ```
 

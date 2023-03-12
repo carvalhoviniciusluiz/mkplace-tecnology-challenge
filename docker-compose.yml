@@ -5,10 +5,18 @@ networks:
     driver: bridge
 
 services:
+  mongo:
+    image: mongo
+    restart: always
+    expose:
+      - ${MONGODB_PORT}
+    ports:
+      - ${MONGODB_PORT}:${MONGODB_PORT}
+
   postgres:
     container_name: ${POSTGRES_CONTAINER_NAME}
     image: postgres
-    restart: always
+    restart: unless-stopped
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
