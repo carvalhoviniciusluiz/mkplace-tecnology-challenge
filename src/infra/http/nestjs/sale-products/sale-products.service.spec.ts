@@ -17,15 +17,7 @@ describe('SaleProductsService', () => {
           useValue: jest.fn()
         },
         {
-          provide: 'FindOneProductBySlugUseCase',
-          useValue: jest.fn()
-        },
-        {
-          provide: 'FindOneSellerByCodeUseCase',
-          useValue: jest.fn()
-        },
-        {
-          provide: 'FindAllSaleProductsUseCase',
+          provide: 'FindAllSaleProducts_LOG_UseCase',
           useValue: jest.fn()
         }
       ],
