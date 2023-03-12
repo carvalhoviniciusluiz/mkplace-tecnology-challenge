@@ -10,13 +10,13 @@ export class SaleProductMikroORMRepository implements InsertSaleProductRepositor
     await this.repository.insert('SaleProduct', {
       externalId: input.id,
       seller: {
-        code: input.seller.code,
+        code: Number(input.seller.code),
         name: input.seller.name
       },
       product: {
         brand: input.product.brand,
         name: input.product.name,
-        price: input.product.price,
+        price: Number(input.product.price),
         slug: input.product.slug
       }
     });
@@ -26,7 +26,7 @@ export class SaleProductMikroORMRepository implements InsertSaleProductRepositor
     let sellerCriteria: any = {};
     if(seller) {
       const { code, name } = seller;
-      !!code ? sellerCriteria.code = code : undefined;
+      !!code ? sellerCriteria.code = Number(code) : undefined;
       !!name ? sellerCriteria.name = name : undefined;
     }
     let productCriteria: any = {};
@@ -37,15 +37,31 @@ export class SaleProductMikroORMRepository implements InsertSaleProductRepositor
       !!slug ? productCriteria.slug = slug : undefined;
       !!priceRange
         ? productCriteria.price = {
-          $gte: priceRange.minValue,
-          $lt: priceRange.maxValue
+          $gte: Number(priceRange.minValue),
+          $lt: Number(priceRange.maxValue)
         }
         : undefined;
     }
-    const output: any = await this.repository.fork().find('SaleProduct', {
+    const objects: any[] = await this.repository.fork().find('SaleProduct', {
       seller: sellerCriteria,
       product: productCriteria,
     });
-    return output
+    const output = objects.reduce((acc, tuple) => {
+      acc.push({
+        id: tuple.externalId,
+        seller: {
+          name: tuple.seller.name,
+          code: tuple.seller.code
+        },
+        product: {
+          brand: tuple.product.brand,
+          name: tuple.product.name,
+          price: tuple.product.price,
+          slug: tuple.product.slug
+        }
+      });
+      return acc;
+    }, []);
+    return output;
   }
 }

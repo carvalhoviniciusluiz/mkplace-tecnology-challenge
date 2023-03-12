@@ -104,6 +104,13 @@ import { EntityManager } from '@mikro-orm/mongodb';
         return new FindAllSaleProductsUseCase(repository);
       },
       inject: [SaleProductTypeOrmRepository]
+    },
+    {
+      provide: 'FindAllSaleProducts_LOG_UseCase',
+      useFactory: (repository: FindAllSaleProductsRepositoryInterface) => {
+        return new FindAllSaleProductsUseCase(repository);
+      },
+      inject: [SaleProductMikroORMRepository]
     }
   ]
 })

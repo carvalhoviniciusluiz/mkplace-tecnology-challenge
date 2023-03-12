@@ -11,7 +11,7 @@ export class SaleProductsService {
   constructor(
     @Inject('CreateSaleProductUseCase')
     private readonly createSaleProductUseCase: CreateSaleProductUseCaseInterface,
-    @Inject('FindAllSaleProductsUseCase')
+    @Inject('FindAllSaleProducts_LOG_UseCase')
     private readonly findAllSaleProductsUseCase: FindAllSaleProductsUseCaseInterface,
     @Inject('EventEmitter')
     private eventEmitter: EventEmitter,
