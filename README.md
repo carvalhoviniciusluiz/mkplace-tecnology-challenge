@@ -100,11 +100,17 @@ docker-compose up
   - TypeORM
   - MikroORM
   - Docker
+- Banco de Dados
+  - Postgres
+  - MongoDB
+  - SQLite3
 </details>
 
-__IMPORTANTE__: Existe dois recursos de BFF presentes para exemplificar o funcionamento de serviços em paralelo consimundo do mesmo `core`, `usecases` e `repositories`. Esses serviços funcionam independentes uns dos outros e alimentam a mesma base de dados, alguns estão implementados com regras diferentes da API principal para poder demonstrar a flexibilidade de construção dos cenários.
+__IMPORTANTE__ 1: O projeto apresenta um arquivo de importação para as suas APIs de modo a facilitar os testes, como requisito é necessário possuir o programa insomnia instalado no ambiente. A importação das rotas para o insomnia é feito usando o botão roxo `Run In Insomnia` presente no topo da página.
 
-__IMPORTANTE__: O projeto apresenta um arquivo de importação para as suas APIs de modo a facilitar os testes, como requisito é necessário possuir o programa insomnia instalado no ambiente. A importação das rotas para o insomnia é feito usando o botão roxo `Run In Insomnia` presente no topo da página.
+__IMPORTANTE__ 2: O Suporte do docker contempla somente a parte de serviços necessários para o projeto funcionar isso por que se trata de configuração para desenvolvimento e não produção.
+
+__IMPORTANTE__ 3: Existe dois recursos de BFF presentes para exemplificar o funcionamento de serviços em paralelo consimundo do mesmo `core`, `usecases` e `repositories`. Esses serviços funcionam independentes uns dos outros e alimentam a mesma base de dados bruta (relacional), no entanto, a API principal também alimenta uma base de dados de log (nosql) que é acessível a nível de BFF. Vale resaltar que a estratégia de log vem para da força a estratégia de cache nas concultas, os BFFs tem acesso aos mesmos dados só que vindos do banco de dados bruta.
 
 ### **Requisitos:**
 
