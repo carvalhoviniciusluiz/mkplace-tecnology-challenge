@@ -2,8 +2,8 @@ import { EntityManager } from "@mikro-orm/mongodb";
 import { OnQueueFailed, Process, Processor } from "@nestjs/bull";
 import { Inject } from "@nestjs/common";
 import { Job } from "bull";
-import { CreateSaleProductUseCaseInterface } from "~/domain/usecases/sale-products";
-import { CreateSaleProductUseCaseInputInterface } from "~/domain/usecases/sale-products/inputs";
+import type { CreateSaleProductUseCaseInterface } from "~/domain/usecases/sale-products";
+import type { CreateSaleProductUseCaseInputInterface } from "~/domain/usecases/sale-products/inputs";
 
 @Processor('sale-products-service')
 export class PersistSaleProductJob {
