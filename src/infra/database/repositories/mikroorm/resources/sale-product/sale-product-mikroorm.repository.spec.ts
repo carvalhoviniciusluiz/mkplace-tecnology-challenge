@@ -14,7 +14,7 @@ describe('SaleProductMikroORMRepository Test', () => {
     orm = await MikroORM.init({
       entities: [SellerMikroORMSchema, ProductMikroORMSchema, SaleProductMikroORMSchema],
       clientUrl: 'mongodb://localhost:27017/mikro-orm-test',
-      debug: true
+      debug: false
     });
     await orm.schema.clearDatabase();
   });
@@ -33,7 +33,7 @@ describe('SaleProductMikroORMRepository Test', () => {
     saleProduct.externalId = faker.datatype.uuid();
     saleProduct.seller = seller;
     saleProduct.product = product;
-    const repository = new SaleProductMikroORMRepository(orm);
+    const repository = new SaleProductMikroORMRepository(orm.em);
     await repository.insert({
       id: saleProduct.externalId,
       seller: {
@@ -81,7 +81,7 @@ describe('SaleProductMikroORMRepository Test', () => {
     });
   });
   it('should find seller by code', async () => {
-    const repository = new SaleProductMikroORMRepository(orm);
+    const repository = new SaleProductMikroORMRepository(orm.em);
     const code = faker.datatype.number(4);
     await repository.insert({
       id: faker.datatype.uuid(),
@@ -102,7 +102,7 @@ describe('SaleProductMikroORMRepository Test', () => {
     expect(output).not.toBeUndefined();
   });
   it('should find seller by name', async () => {
-    const repository = new SaleProductMikroORMRepository(orm);
+    const repository = new SaleProductMikroORMRepository(orm.em);
     const name = faker.name.findName();
     await repository.insert({
       id: faker.datatype.uuid(),
@@ -123,7 +123,7 @@ describe('SaleProductMikroORMRepository Test', () => {
     expect(output).not.toBeUndefined();
   });
   it('should find product by price', async () => {
-    const repository = new SaleProductMikroORMRepository(orm);
+    const repository = new SaleProductMikroORMRepository(orm.em);
     await repository.insert({
       id: faker.datatype.uuid(),
       seller: {

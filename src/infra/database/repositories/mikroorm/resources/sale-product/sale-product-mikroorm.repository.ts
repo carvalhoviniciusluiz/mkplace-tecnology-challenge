@@ -1,13 +1,13 @@
-import { MikroORM } from '@mikro-orm/mongodb';
+import { EntityManager } from '@mikro-orm/mongodb';
 import type { FindAllSaleProductsRepositoryInterface, InsertSaleProductRepositoryInterface } from "~/domain/repositories/sale-products";
 import type { FindAllSaleProductsRepositoryInputInterface, InsertSaleProductRepositoryInputInterface } from "~/domain/repositories/sale-products/inputs";
 import type { FindAllSaleProductsRepositoryOutputInterface } from "~/domain/repositories/sale-products/output";
 
 export class SaleProductMikroORMRepository implements InsertSaleProductRepositoryInterface, FindAllSaleProductsRepositoryInterface {
-  constructor(private repository: MikroORM) {}
+  constructor(private repository: EntityManager) {}
 
   async insert(input: InsertSaleProductRepositoryInputInterface): Promise<void> {
-    await this.repository.em.insert('SaleProduct', {
+    await this.repository.insert('SaleProduct', {
       externalId: input.id,
       seller: {
         code: input.seller.code,
@@ -42,7 +42,7 @@ export class SaleProductMikroORMRepository implements InsertSaleProductRepositor
         }
         : undefined;
     }
-    const output: any = await this.repository.em.fork().find('SaleProduct', {
+    const output: any = await this.repository.fork().find('SaleProduct', {
       seller: sellerCriteria,
       product: productCriteria,
     });

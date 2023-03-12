@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { getRepositoryToken } from '@mikro-orm/nestjs';
 import { SaleProductsService } from './sale-products.service';
 import { SaleProductsController } from './sale-products.controller';
 import { getDataSourceToken, TypeOrmModule } from '@nestjs/typeorm';
@@ -18,6 +19,8 @@ import { EventEmitter2, EventEmitterModule } from '@nestjs/event-emitter';
 import { BullModule } from '@nestjs/bull';
 import { PublishSaleProductCreatedListener } from './listeners/publish-sale-product-created.listener';
 import { PersistSaleProductJob } from './jobs/persist-sale-product.job';
+import { SaleProductMikroORMRepository } from '~/infra/database/repositories/mikroorm/resources';
+import { EntityManager } from '@mikro-orm/mongodb';
 
 @Module({
   imports: [
@@ -38,6 +41,13 @@ import { PersistSaleProductJob } from './jobs/persist-sale-product.job';
     {
       provide: 'EventEmitter',
       useExisting: EventEmitter2,
+    },
+    {
+      provide: SaleProductMikroORMRepository,
+      useFactory: (repository: EntityManager) => {
+        return new SaleProductMikroORMRepository(repository);
+      },
+      inject: [EntityManager]
     },
     {
       provide: SaleProductTypeOrmRepository,
@@ -80,6 +90,13 @@ import { PersistSaleProductJob } from './jobs/persist-sale-product.job';
         return new CreateSaleProductUseCase(findOneProductBySlugUseCaseInterface, findOneSellerByCodeUseCaseInterface, repository);
       },
       inject: ['FindOneProductBySlugUseCase', 'FindOneSellerByCodeUseCase', SaleProductTypeOrmRepository]
+    },
+    {
+      provide: 'CreateSaleProduct_LOG_UseCase',
+      useFactory: (findOneProductBySlugUseCaseInterface: FindOneProductBySlugUseCaseInterface, findOneSellerByCodeUseCaseInterface: FindOneSellerByCodeUseCaseInterface, repository: InsertSaleProductRepositoryInterface) => {
+        return new CreateSaleProductUseCase(findOneProductBySlugUseCaseInterface, findOneSellerByCodeUseCaseInterface, repository);
+      },
+      inject: ['FindOneProductBySlugUseCase', 'FindOneSellerByCodeUseCase', SaleProductMikroORMRepository]
     },
     {
       provide: 'FindAllSaleProductsUseCase',
