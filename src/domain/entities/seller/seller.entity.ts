@@ -25,7 +25,14 @@ export class Seller {
     if(!seller.code) {
       seller.updateCode(Seller.genCode());
     }
+    seller.validate();
     return seller;
+  }
+
+  validate() {
+    if(!this.name) {
+      throw new Error('name is requered');
+    }
   }
 
   static genCode() {

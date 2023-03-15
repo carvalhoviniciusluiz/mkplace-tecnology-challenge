@@ -13,6 +13,14 @@ describe('Seller Entity', () => {
       ...sellerProps,
     });
   });
+  test('not create new seller if name is empty', () => {
+    expect(() => {
+      Seller.create({
+        ...sellerProps,
+        name: undefined
+      })
+    }).toThrow('name is requered');
+  });
   test('updateCode method', () => {
     const newCode = faker.datatype.number(4);
     const seller = Seller.create(sellerProps);

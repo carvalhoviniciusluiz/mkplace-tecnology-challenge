@@ -23,6 +23,22 @@ describe('SaleProduct Entity', () => {
       product: saleProductProps.product.id,
     });
   });
+  test('not create new saleProduct if seller is empty', () => {
+    expect(() => {
+      SaleProduct.create({
+        ...saleProductProps,
+        seller: undefined
+      })
+    }).toThrow('seller is requered');
+  });
+  test('not create new saleProduct if product is empty', () => {
+    expect(() => {
+      SaleProduct.create({
+        ...saleProductProps,
+        product: undefined
+      })
+    }).toThrow('product is requered');
+  });
   test('updateSeller method', () => {
     const newSeller = Seller.create({
       code: faker.datatype.number(4),

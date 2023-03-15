@@ -21,7 +21,21 @@ export class Product {
   ) {}
 
   static create(props: ProductProps, id?: string) {
-    return new Product(props, id);
+    const product = new Product(props, id);
+    product.validate();
+    return product;
+  }
+
+  validate() {
+    if(!this.brand) {
+      throw new Error('brand is requered');
+    }
+    if(!this.name) {
+      throw new Error('name is requered');
+    }
+    if(!this.price) {
+      throw new Error('price is requered');
+    }
   }
 
   toJSON() {

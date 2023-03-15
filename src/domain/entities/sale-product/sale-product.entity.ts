@@ -26,7 +26,18 @@ export class SaleProduct {
   ) {}
 
   static create(props: SaleProductProps, id?: string) {
-    return new SaleProduct(props, id);
+    const saleProduct = new SaleProduct(props, id);
+    saleProduct.validate();
+    return saleProduct;
+  }
+
+  validate() {
+    if(!this.seller) {
+      throw new Error('seller is requered');
+    }
+    if(!this.product) {
+      throw new Error('product is requered');
+    }
   }
 
   toJSON() {

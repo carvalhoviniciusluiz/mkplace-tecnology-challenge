@@ -14,6 +14,30 @@ describe('Product Entity', () => {
       ...productProps,
     });
   });
+  test('not create new product if brand is empty', () => {
+    expect(() => {
+      Product.create({
+        ...productProps,
+        brand: undefined
+      })
+    }).toThrow('brand is requered');
+  });
+  test('not create new product if name is empty', () => {
+    expect(() => {
+      Product.create({
+        ...productProps,
+        name: undefined
+      })
+    }).toThrow('name is requered');
+  });
+  test('not create new product if price is empty', () => {
+    expect(() => {
+      Product.create({
+        ...productProps,
+        price: undefined
+      })
+    }).toThrow('price is requered');
+  });
   test('updateName method', () => {
     const newName = faker.name.findName();
     const product = Product.create(productProps);
