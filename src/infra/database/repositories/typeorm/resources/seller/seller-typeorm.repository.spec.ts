@@ -3,6 +3,7 @@ import { Seller } from "~/domain/entities";
 import { SellerTypeOrmRepository } from "./seller-typeorm.repository";
 import { SellerSchema } from "./seller.schema";
 import faker from 'faker';
+import { ProductSchema } from "../product";
 
 describe('SellerTypeOrmRepository Test', () => {
   it('should insert a new seller', async () => {
@@ -11,7 +12,7 @@ describe('SellerTypeOrmRepository Test', () => {
       database: ':memory:',
       synchronize: true,
       logging: false,
-      entities: [SellerSchema]
+      entities: [SellerSchema, ProductSchema]
     });
     await dataSource.initialize();
     const repository = dataSource.getRepository(Seller);

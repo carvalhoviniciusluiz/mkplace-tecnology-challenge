@@ -3,6 +3,7 @@ import faker from 'faker';
 import { ProductSchema } from "./product.schema";
 import { Product } from "~/domain/entities";
 import { ProductTypeOrmRepository } from "./product-typeorm.repository";
+import { SellerSchema } from "../seller";
 
 describe('ProductTypeOrmRepository Test', () => {
   const makeSut = async (): Promise<[ProductTypeOrmRepository, Repository<Product>]> => {
@@ -11,7 +12,7 @@ describe('ProductTypeOrmRepository Test', () => {
       database: ':memory:',
       synchronize: true,
       logging: false,
-      entities: [ProductSchema]
+      entities: [SellerSchema, ProductSchema]
     });
     await dataSource.initialize();
     const repository = dataSource.getRepository(Product);

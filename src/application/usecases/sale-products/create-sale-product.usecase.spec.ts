@@ -39,10 +39,13 @@ describe('CreateSaleProductUseCase Test', () => {
     expect(repository.saleProducts).toHaveLength(1);
     expect(output).toStrictEqual({
       id: output.id,
-      name: output.name,
-      brand: output.brand,
-      price: output.price,
-      slug: output.slug,
+      product: {
+        id: output.product.id,
+        name: output.product.name,
+        brand: output.product.brand,
+        price: output.product.price,
+        slug: output.product.slug,
+      },
       seller: {
         id: output.seller.id,
         name: output.seller.name,

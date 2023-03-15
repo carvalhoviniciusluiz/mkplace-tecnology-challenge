@@ -7,7 +7,7 @@ export const sqliteMemoryDataSource = () => {
     type: 'sqlite',
     database: ':memory:',
     synchronize: true,
-    logging: true,
+    logging: false,
     entities: [ProductSchema, SellerSchema, SaleProductSchema]
   });
   return dataSource.initialize();

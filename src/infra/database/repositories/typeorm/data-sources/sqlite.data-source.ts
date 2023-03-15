@@ -7,7 +7,7 @@ export const sqliteDataSource = () => {
     type: 'sqlite',
     database: path.join(__dirname, 'database.sqlite'),
     synchronize: true,
-    logging: true,
+    logging: false,
     entities: [ProductSchema, SellerSchema, SaleProductSchema]
   });
   return dataSource.initialize();

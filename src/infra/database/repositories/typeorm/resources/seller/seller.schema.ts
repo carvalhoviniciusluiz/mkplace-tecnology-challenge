@@ -17,5 +17,15 @@ export const SellerSchema = new EntitySchema<Seller>({
     code: {
       type: Number
     }
-  }
+  },
+  relations: {
+    products: {
+      type: 'many-to-one',
+      target: 'Product',
+      joinColumn: {
+        name: 'product_id',
+        referencedColumnName: 'id',
+      },
+    },
+  },
 });

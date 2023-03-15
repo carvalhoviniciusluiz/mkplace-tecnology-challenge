@@ -33,7 +33,7 @@ import { SaleProductsModule } from './sale-products/sale-products.module';
       type: 'mongo',
       clientUrl: MONGODB_URL,
       entities: [SellerMikroORMSchema, ProductMikroORMSchema, SaleProductMikroORMSchema],
-      debug: DATABASE_SYNCHRONIZE
+      debug: DATABASE_LOGGING
     }),
     BullModule.forRoot({
       redis: {

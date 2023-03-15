@@ -5,6 +5,6 @@ export const mongoDataSource = async () => {
   return MikroORM.init({
     entities: [SellerMikroORMSchema, ProductMikroORMSchema, SaleProductMikroORMSchema],
     clientUrl: 'mongodb://localhost:27017/mikro-orm-test',
-    debug: true
+    debug: false
   });
 }

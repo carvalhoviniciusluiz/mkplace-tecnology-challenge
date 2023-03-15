@@ -2,6 +2,7 @@ import { DataSource } from "typeorm";
 import faker from 'faker';
 import { ProductSchema } from "./product.schema";
 import { Product } from "~/domain/entities";
+import { SellerSchema } from "../seller";
 
 describe('ProductSchema Test', () => {
   test('create', async () => {
@@ -10,7 +11,7 @@ describe('ProductSchema Test', () => {
       database: ':memory:',
       synchronize: true,
       logging: false,
-      entities: [ProductSchema]
+      entities: [ProductSchema, SellerSchema]
     });
     await dataSource.initialize();
     const account = Product.create({

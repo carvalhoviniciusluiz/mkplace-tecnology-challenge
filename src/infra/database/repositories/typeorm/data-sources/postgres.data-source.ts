@@ -10,7 +10,7 @@ export const postgresDataSource = async () => {
     port: 5432,
     database: 'postgres',
     synchronize: true,
-    logging: true,
+    logging: false,
     entities: [ProductSchema, SellerSchema, SaleProductSchema]
   });
   return dataSource.initialize();

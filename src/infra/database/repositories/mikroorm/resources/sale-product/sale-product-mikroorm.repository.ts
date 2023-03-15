@@ -42,11 +42,11 @@ export class SaleProductMikroORMRepository implements InsertSaleProductRepositor
         }
         : undefined;
     }
-    const objects: any[] = await this.repository.fork().find('SaleProduct', {
+    const tuples: any[] = await this.repository.fork().find('SaleProduct', {
       seller: sellerCriteria,
       product: productCriteria,
     });
-    const output = objects.reduce((acc, tuple) => {
+    const output = tuples.reduce((acc, tuple) => {
       acc.push({
         id: tuple.externalId,
         seller: {

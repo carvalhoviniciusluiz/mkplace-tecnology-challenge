@@ -29,4 +29,14 @@ export const ProductSchema = new EntitySchema<Product>({
       length: 255
     }
   },
+  relations: {
+    sellers: {
+      type: 'many-to-one',
+      target: 'Seller',
+      joinColumn: {
+        name: 'seller_id',
+        referencedColumnName: 'id',
+      },
+    },
+  },
 });

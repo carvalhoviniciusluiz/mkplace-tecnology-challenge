@@ -1,8 +1,17 @@
 import crypto from 'crypto';
 
+type ProductProps = {
+  id: string;
+  name: string;
+  brand: string;
+  price: number;
+  slug: string;
+}
+
 type SellerProps = {
   code: number;
   name: string;
+  products?: ProductProps[];
 }
 
 export class Seller {
@@ -52,5 +61,13 @@ export class Seller {
 
   private set name(value: string) {
     this.props.name = value;
+  }
+
+  get products() {
+    return this.props.products;
+  }
+
+  private set products(value: ProductProps[]) {
+    this.props.products = value;
   }
 }
