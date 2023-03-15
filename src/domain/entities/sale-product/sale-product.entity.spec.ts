@@ -19,8 +19,8 @@ describe('SaleProduct Entity', () => {
     const saleProduct = SaleProduct.create(saleProductProps);
     expect(saleProduct.toJSON()).toStrictEqual({
       id: saleProduct.id,
-      seller: saleProductProps.seller.id,
-      product: saleProductProps.product.id,
+      seller: saleProductProps.seller,
+      product: saleProductProps.product,
     });
   });
   test('not create new saleProduct if seller is empty', () => {
@@ -29,7 +29,7 @@ describe('SaleProduct Entity', () => {
         ...saleProductProps,
         seller: undefined
       })
-    }).toThrow('seller is requered');
+    }).toThrow('SaleProduct seller is required');
   });
   test('not create new saleProduct if product is empty', () => {
     expect(() => {
@@ -37,7 +37,7 @@ describe('SaleProduct Entity', () => {
         ...saleProductProps,
         product: undefined
       })
-    }).toThrow('product is requered');
+    }).toThrow('SaleProduct product is required');
   });
   test('updateSeller method', () => {
     const newSeller = Seller.create({

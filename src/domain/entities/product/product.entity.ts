@@ -1,4 +1,6 @@
-import crypto from 'crypto';
+// import crypto from 'crypto';
+import { EntityBase } from '~/domain/@shared/entity';
+import { NotificationError } from '~/domain/@shared/errors';
 
 type SellerProps = {
   id: string;
@@ -14,27 +16,38 @@ type ProductProps = {
   sellers?: SellerProps[];
 }
 
-export class Product {
-  private constructor(
-    private readonly props = {} as ProductProps,
-    readonly id = crypto.randomUUID()
-  ) {}
+export class Product extends EntityBase {
+  private constructor(private readonly props = {} as ProductProps) {
+    super();
+  }
 
-  static create(props: ProductProps, id?: string) {
-    const product = new Product(props, id);
+  static create(props: ProductProps) {
+    const product = new Product(props);
     product.validate();
+    if(product.notification.hasError()) {
+      throw new NotificationError(product.notification.errors());
+    }
     return product;
   }
 
   validate() {
     if(!this.brand) {
-      throw new Error('brand is requered');
+      this.notification.addError({
+        context: Product.name,
+        message: "brand is required"
+      });
     }
     if(!this.name) {
-      throw new Error('name is requered');
+      this.notification.addError({
+        context: Product.name,
+        message: "name is required"
+      });
     }
     if(!this.price) {
-      throw new Error('price is requered');
+      this.notification.addError({
+        context: Product.name,
+        message: "price is required"
+      });
     }
   }
 

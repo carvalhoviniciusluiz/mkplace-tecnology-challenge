@@ -19,7 +19,7 @@ describe('Seller Entity', () => {
         ...sellerProps,
         name: undefined
       })
-    }).toThrow('name is requered');
+    }).toThrow('Seller name is required');
   });
   test('updateCode method', () => {
     const newCode = faker.datatype.number(4);

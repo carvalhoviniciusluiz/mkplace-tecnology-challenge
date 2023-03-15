@@ -1,4 +1,5 @@
-import crypto from 'crypto';
+import { EntityBase } from '~/domain/@shared/entity';
+import { NotificationError } from '~/domain/@shared/errors';
 
 type SellerProps = {
   id: string;
@@ -19,34 +20,39 @@ type SaleProductProps = {
   product: ProductProps;
 }
 
-export class SaleProduct {
-  private constructor(
-    private readonly props = {} as SaleProductProps,
-    readonly id = crypto.randomUUID()
-  ) {}
+export class SaleProduct extends EntityBase {
+  private constructor(private readonly props = {} as SaleProductProps) {
+    super();
+  }
 
-  static create(props: SaleProductProps, id?: string) {
-    const saleProduct = new SaleProduct(props, id);
+  static create(props: SaleProductProps) {
+    const saleProduct = new SaleProduct(props);
     saleProduct.validate();
+    if(saleProduct.notification.hasError()) {
+      throw new NotificationError(saleProduct.notification.errors());
+    }
     return saleProduct;
   }
 
   validate() {
     if(!this.seller) {
-      throw new Error('seller is requered');
+      this.notification.addError({
+        context: SaleProduct.name,
+        message: "seller is required"
+      });
     }
     if(!this.product) {
-      throw new Error('product is requered');
+      this.notification.addError({
+        context: SaleProduct.name,
+        message: "product is required"
+      });
     }
   }
 
   toJSON() {
     return {
       id: this.id,
-
-      // needed because of typeorm..
-      seller: this.props.seller.id ?? this.props.seller,
-      product: this.props.product.id ?? this.props.product
+      ...this.props
     };
   }
 
